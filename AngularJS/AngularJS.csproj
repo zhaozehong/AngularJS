@@ -61,6 +61,8 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="github.js" />
+    <Content Include="line.html" />
+    <Content Include="LineController.js" />
     <Content Include="main.html" />
     <Content Include="repo.html" />
     <Content Include="RepoController.js" />

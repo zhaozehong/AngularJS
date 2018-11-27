@@ -24,10 +24,21 @@
         return repo;
       });
   };
+  var getChartData = function (chartType) {
+    if (chartType === "line") {
+
+    }
+    return $http.get("https://youquhome.com/")
+      .then(function (response) {
+        return [];
+      });
+  };
+  
   return {
     getUser: getUser,
     getRepos: getRepos,
-    getRepoDetails: getRepoDetails
+    getRepoDetails: getRepoDetails,
+    getChartData: getChartData
   };
 };
 angular.module("customModule", []).factory("github", github);

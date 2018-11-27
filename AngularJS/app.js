@@ -12,6 +12,10 @@ app.config(function ($routeProvider) {
     .when("/repo/:username/:reponame", {
       templateUrl: "repo.html",
       controller: "RepoController"
-    })//collaborators, contributors
+    })//collaborators is no longer used, replace it with contributors
+    .when("/line", {
+      templateUrl: "line.html",
+      controller: "LineController"
+    })
     .otherwise({ redirectTo: "/main" });
 });
