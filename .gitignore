@@ -49,3 +49,7 @@ ehthumbs.db
 Icon?
 Thumbs.db
 /CodeCamper.Web/Content/hans_fj
+.vs/AngularJS/v15/Server/sqlite3/storage.ide-wal
+.vs/AngularJS/v15/Server/sqlite3/storage.ide-shm
+.vs/AngularJS/v15/Server/sqlite3/storage.ide
+.vs/AngularJS/v15/Server/sqlite3/db.lock

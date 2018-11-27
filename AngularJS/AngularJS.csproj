@@ -59,13 +59,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app.js" />
     <Content Include="github.js" />
+    <Content Include="main.html" />
+    <Content Include="repo.html" />
+    <Content Include="RepoController.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="index.html" />
     <Content Include="MainController.js" />
     <Content Include="style.css" />
-    <Content Include="userdetails.html" />
+    <Content Include="UserController.js" />
+    <Content Include="user.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
