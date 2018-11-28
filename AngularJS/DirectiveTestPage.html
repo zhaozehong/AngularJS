@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="Scripts/angular.js"></script>
+  <title></title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+  <div style="background-color: burlywood">
+    <p>Hello {{name1}}</p>
+    <button ng-click="updateName1()">Update Name</button>
+  </div>
+  <div my-student name3="{{name1}}" update-name3="updateName1()"></div>
+
+
+  <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.controller("myCtrl", function ($scope) {
+      $scope.name1 = "XiaoMing";
+      var i = 1;
+      $scope.updateName1 = function () {
+        $scope.name1 = $scope.name1 + (i++);
+      }
+    })
+
+    app.directive("myStudent", function () {
+      return {
+        restrict: "EA",
+        replace: true,
+        templateUrl: "templateUrls/child1.html",
+        scope: {
+          name2: '@name3',
+          //updateName2: '&updateName3'
+        },
+        controller: function ($scope) {
+          var i = 1;
+          $scope.updateName2 = function () {
+            $scope.name2 = $scope.name2 + (i++);
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

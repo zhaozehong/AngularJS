@@ -22,7 +22,7 @@
 
   $scope.username = "angular";
   $scope.countdown = 5;
-  startCountDown();
+  //startCountDown();
 };
 
 var app = angular.module("githubViewer");

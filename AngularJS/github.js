@@ -28,12 +28,23 @@
     if (chartType === "line") {
 
     }
+    else if (chartType === "pie") {
+      return $http.get("https://api.github.com/users/angular")
+        .then(function (response) {
+          return {
+            legend: ["男", "女"],
+            data: [{ value: 78, name: '男' }, { value: 56, name: '女' }]
+          };
+        });
+    }
+
     return $http.get("https://youquhome.com/")
       .then(function (response) {
-        return [];
+        return {};
       });
+
   };
-  
+
   return {
     getUser: getUser,
     getRepos: getRepos,

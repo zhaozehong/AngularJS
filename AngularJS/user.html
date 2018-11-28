@@ -1,7 +1,7 @@
 ﻿<div>
   <h2>{{user.name}}</h2>
   {{error}}
-  <img ng-src="{{user.avatar_url}}" title="{{user.name}}" />
+  <img ng-src="{{user.avatar_url}}" title="{{user.name}}" ng-click="createPie()"/>
   Option:
   <select ng-model="repoSortOrder">
     <option value="+name">Name</option>
