@@ -5,6 +5,7 @@
         return response.data;
       });
   };
+
   var getRepos = function (user) {
     return $http.get(user.repos_url)
       .then(function (response) {
@@ -30,6 +31,7 @@
     }
     else if (chartType === "pie") {
       return $http.get("https://api.github.com/users/angular")
+      //return $http.jsonp("http://gc.ditu.aliyun.com/geocoding?jsonp=JSON_CALLBACK&a=%E8%8B%8F%E5%B7%9E%E5%B8%82")
         .then(function (response) {
           return {
             legend: ["男", "女"],

@@ -13,9 +13,6 @@
 
   $scope.username = $routeParams.username;
   $scope.repoSortOrder = "-stargazers_count";
-  $scope.createPie = function () {
-    $location.path("/pie");
-  };
 
   github.getUser($scope.username).then(onUserComplete, onError);
 };

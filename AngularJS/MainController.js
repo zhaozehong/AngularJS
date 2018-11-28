@@ -19,7 +19,10 @@
     }
     $location.path("/user/" + $scope.username)
   };
-
+  $scope.createChart = function () {
+    $location.path("/pie")
+  };
+  
   $scope.username = "angular";
   $scope.countdown = 5;
   //startCountDown();
