@@ -1,4 +1,6 @@
-﻿var MainController = function ($scope, $interval, $location) {
+﻿'use strict';
+
+var MainController = function ($scope, $interval, $location) {
 
   var decrementCountdown = function () {
     $scope.countdown -= 1;
@@ -19,14 +21,11 @@
     }
     $location.path("/user/" + $scope.username)
   };
-  $scope.createChart = function () {
-    $location.path("/pie")
-  };
-  
+
   $scope.username = "angular";
   $scope.countdown = 5;
   //startCountDown();
 };
 
-var app = angular.module("githubViewer");
+var app = angular.module("projectModule");
 app.controller("MainController", MainController);

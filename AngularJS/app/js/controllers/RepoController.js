@@ -1,4 +1,6 @@
-﻿var RepoController = function ($scope, $routeParams, github) {
+﻿'use strict';
+
+var RepoController = function ($scope, $routeParams, github) {
 
   var onRepo = function (data) {
     $scope.repo = data;
@@ -13,5 +15,5 @@
     .then(onRepo, onError);
 };
 
-var app = angular.module("githubViewer");
+var app = angular.module("projectModule");
 app.controller("RepoController", RepoController);

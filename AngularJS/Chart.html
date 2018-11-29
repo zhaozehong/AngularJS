@@ -1,0 +1,39 @@
+﻿<div ng-view></div>
+<script>
+  angular.module('docsTimeDirective', [])
+    .controller('Controller', ['$scope', function ($scope) {
+      $scope.format = 'M/d/yy h:mm:ss a';
+    }])
+    .directive('myCurrentTime', ['$interval', 'dateFilter', function ($interval, dateFilter) {
+
+      function link(scope, element, attrs) {
+        var format,
+          timeoutId;
+
+        function updateTime() {
+          element.text(dateFilter(new Date(), format));
+        }
+
+        scope.$watch(attrs.myCurrentTime, function (value) {
+          format = value;
+          updateTime();
+        });
+
+        // 注册在scope和element上的监听器会随着scope和element的销毁而跟着销毁
+        // 但是注册在service或者注册在DOM节点上的监听器则不会，它们需要显式的移除，否则就要承担内存泄漏的风险
+        // 想显式清除可能导致内存泄漏的监听器，那么就需要使用$destroy事件监听，并且需要把它们注册在element上或者scope上
+        element.on('$destroy', function () {
+          $interval.cancel(timeoutId);
+        });
+
+        // start the UI update process; save the timeoutId for canceling
+        timeoutId = $interval(function () {
+          updateTime(); // update DOM
+        }, 1000);
+      }
+
+      return {
+        link: link
+      };
+    }]);
+</script>

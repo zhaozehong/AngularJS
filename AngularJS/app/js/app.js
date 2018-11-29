@@ -1,21 +1,27 @@
-﻿var app = angular.module("githubViewer", ["ngRoute", "customModule"]);
+﻿'use strict';
+
+var app = angular.module("projectModule", ["ngRoute", "customModule"]);
 app.config(function ($routeProvider, $locationProvider) {
   //$locationProvider.hashPrefix("");
   $routeProvider
     .when("/main", {
-      templateUrl: "main.html",
+      templateUrl: "app/js/views/main.html",
       controller: "MainController"
     })
     .when("/user/:username", {
-      templateUrl: "user.html",
+      templateUrl: "app/js/views/user.html",
       controller: "UserController"
     })
     .when("/repo/:username/:reponame", {
-      templateUrl: "repo.html",
+      templateUrl: "app/js/views/repo.html",
       controller: "RepoController"
     })//collaborators is no longer used, replace it with contributors
+    .when("/line", {
+      templateUrl: "app/js/views/line.html",
+      controller: "LineController"
+    })
     .when("/pie", {
-      templateUrl: "pie.html",
+      templateUrl: "app/js/views/pie.html",
       controller: "PieController"
     })
     .otherwise({ redirectTo: "/main" });

@@ -59,23 +59,30 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.js" />
+    <Content Include="app\css\bootstrap.css" />
+    <Content Include="app\js\controllers\LineController.js" />
+    <Content Include="app\js\directives.js" />
+    <Content Include="app\js\app.js" />
+    <Content Include="app\js\views\common\menu.html" />
+    <Content Include="app\js\views\line.html" />
+    <Content Include="Chart.html" />
     <Content Include="DirectiveTestPage.html" />
-    <Content Include="github.js" />
-    <Content Include="pie.html" />
-    <Content Include="PieController.js" />
-    <Content Include="main.html" />
-    <Content Include="repo.html" />
-    <Content Include="RepoController.js" />
+    <Content Include="app\js\services\github.js" />
+    <Content Include="app\js\views\pie.html" />
+    <Content Include="app\js\controllers\PieController.js" />
+    <Content Include="app\js\views\main.html" />
+    <Content Include="app\js\views\repo.html" />
+    <Content Include="app\js\controllers\RepoController.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="index.html" />
-    <Content Include="MainController.js" />
+    <Content Include="app\js\controllers\MainController.js" />
     <Content Include="Scripts\echarts.js" />
-    <Content Include="style.css" />
+    <Content Include="app\css\style.css" />
     <Content Include="templateUrls\child1.html" />
-    <Content Include="UserController.js" />
-    <Content Include="user.html" />
+    <Content Include="TEST.html" />
+    <Content Include="app\js\controllers\UserController.js" />
+    <Content Include="app\js\views\user.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +95,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\img\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
