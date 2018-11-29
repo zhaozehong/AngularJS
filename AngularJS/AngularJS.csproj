@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\css\bootstrap.css" />
+    <Content Include="app\img\taihou.jpg" />
     <Content Include="app\js\controllers\LineController.js" />
     <Content Include="app\js\directives.js" />
     <Content Include="app\js\app.js" />
@@ -96,9 +97,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app\img\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
