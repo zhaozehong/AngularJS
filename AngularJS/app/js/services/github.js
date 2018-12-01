@@ -49,11 +49,23 @@ var github111 = function ($http) {
 
   };
 
+
+  var myObject = {};
+  var setter = function (data) { myObject = data;}
+  var getter = function () { return myObject;}
+
+
+
+
+
   return {
     getUser: getUser,
     getRepos: getRepos,
     getRepoDetails: getRepoDetails,
-    getChartData: getChartData
+    getChartData: getChartData,
+
+    setter: setter,
+    getter: getter,
   };
 };
 angular.module("customModule", []).factory("github", github111);

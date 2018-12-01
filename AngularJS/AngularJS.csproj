@@ -64,6 +64,7 @@
     <Content Include="app\js\controllers\ATESTController.js" />
     <Content Include="app\js\controllers\LineController.js" />
     <Content Include="app\js\controllers\menuController.js" />
+    <Content Include="app\js\controllers\User1Controller.js" />
     <Content Include="app\js\directives.js" />
     <Content Include="app\js\app.js" />
     <Content Include="app\js\views\ATEST.html" />
@@ -79,6 +80,7 @@
     <Content Include="app\js\views\main.html" />
     <Content Include="app\js\views\repo.html" />
     <Content Include="app\js\controllers\RepoController.js" />
+    <Content Include="new\img\angularjs-logo.png" />
     <Content Include="new\js\app.js" />
     <Content Include="new\js\controllers\EventController.js" />
     <Content Include="new\lib\angular\angular-cookies.js" />

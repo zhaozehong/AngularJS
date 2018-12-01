@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var MainController = function ($scope, $interval, $location) {
+var MainController = function ($scope, $interval, $location, github) {
 
   var decrementCountdown = function () {
     $scope.countdown -= 1;
@@ -19,7 +19,13 @@ var MainController = function ($scope, $interval, $location) {
       $interval.cancel(countdownInterval);
       $scope.countdown = null;
     }
-    $location.path("/user/" + $scope.username)
+
+    // way 0
+    //$location.path("/user/" + $scope.username)
+
+    // way 1
+    github.setter($scope.username);
+    $location.path("/user1");
   };
 
   $scope.username = "angular";
