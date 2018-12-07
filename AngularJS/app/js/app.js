@@ -20,14 +20,10 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/repo/:username/:reponame", {
       templateUrl: "app/js/views/repo.html",
       controller: "RepoController"
-    })//collaborators is no longer used, replace it with contributors
-    .when("/line", {
-      templateUrl: "app/js/views/line.html",
-      controller: "LineController"
     })
-    .when("/pie", {
-      templateUrl: "app/js/views/pie.html",
-      controller: "PieController"
+    .when("/chart/:charttype", {
+      templateUrl: "app/js/views/sfchart.html",
+      controller: "SFChartController"
     })
     .when("/test", {
       templateUrl: "app/js/views/ATEST.html",

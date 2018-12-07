@@ -74,3 +74,10 @@ select, textarea {
     left: 209px;
     background-color: #272b30;
 }
+
+[ng\:cloak], [ng-clock], [data-ng-clock], [x-ng-clock], [.ng-clock], [.x-ng-clock]{
+  display: none;
+}
+.blue{
+  color: blue;
+}

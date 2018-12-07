@@ -4,12 +4,16 @@
 [x-ng-cloak],
 .ng-cloak,
 .x-ng-cloak {
-    display: none !important;
+  display: none !important;
 }
 
-.littleImg{
+.littleImg {
   width: 100px;
   height: 100px;
+}
+
+div {
+  height: 100%;
 }
 
 h1,

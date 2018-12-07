@@ -60,29 +60,41 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\css\bootstrap.css" />
+    <Content Include="app\css\style.css" />
     <Content Include="app\img\angularjs-logo.png" />
     <Content Include="app\js\controllers\ATESTController.js" />
-    <Content Include="app\js\controllers\LineController.js" />
     <Content Include="app\js\controllers\menuController.js" />
+    <Content Include="app\js\controllers\SFChartController.js" />
     <Content Include="app\js\controllers\User1Controller.js" />
     <Content Include="app\js\directives.js" />
     <Content Include="app\js\app.js" />
+    <Content Include="Scripts\china.js" />
+    <Content Include="Scripts\echarts-gl.min.js" />
+    <Content Include="Scripts\echarts.js" />
+    <Content Include="Scripts\world.js" />
+    <Content Include="SmartFactory\img\angularjs-logo.png" />
+    <Content Include="SmartFactory\sfchart.js" />
     <Content Include="app\js\views\ATEST.html" />
+    <Content Include="app\js\views\sfchart.html" />
     <Content Include="new\css\app.css" />
     <Content Include="new\css\bootstrap.min.css" />
+    <Content Include="new\css\font-awesome.css" />
+    <Content Include="new\EditProfile.html" />
     <Content Include="new\EventDetails.html" />
-    <Content Include="app\js\views\line.html" />
     <Content Include="Chart.html" />
     <Content Include="DirectiveTestPage.html" />
     <Content Include="app\js\services\github.js" />
-    <Content Include="app\js\views\pie.html" />
-    <Content Include="app\js\controllers\PieController.js" />
     <Content Include="app\js\views\main.html" />
     <Content Include="app\js\views\repo.html" />
     <Content Include="app\js\controllers\RepoController.js" />
     <Content Include="new\img\angularjs-logo.png" />
     <Content Include="new\js\app.js" />
+    <Content Include="new\js\controllers\EditEventController.js" />
+    <Content Include="new\js\controllers\EditProfileController.js" />
     <Content Include="new\js\controllers\EventController.js" />
+    <Content Include="new\js\filters.js" />
+    <Content Include="new\js\services\EventData.js" />
+    <Content Include="new\js\services\GravatarUrlBuilder.js" />
     <Content Include="new\lib\angular\angular-cookies.js" />
     <Content Include="new\lib\angular\angular-locale_es.js" />
     <Content Include="new\lib\angular\angular-resource.js" />
@@ -121,12 +133,19 @@
     <Content Include="new\lib\jquery-ui-1.11.4.custom\jquery-ui.theme.min.css" />
     <Content Include="new\lib\jquery.min.js" />
     <Content Include="new\lib\underscore-1.4.4.min.js" />
+    <Content Include="new\NewEvent.html" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="index.html" />
     <Content Include="app\js\controllers\MainController.js" />
-    <Content Include="Scripts\echarts.js" />
-    <Content Include="app\css\style.css" />
+    <Content Include="SmartFactoryChartDemo.html" />
+    <Content Include="SmartFactory\app.js" />
+    <Content Include="SmartFactory\controllers\FactoryController.js" />
+    <Content Include="SmartFactory\controllers\MachineController.js" />
+    <Content Include="SmartFactory\controllers\MainController.js" />
+    <Content Include="SmartFactory\views\factory.html" />
+    <Content Include="SmartFactory\views\machine.html" />
+    <Content Include="SmartFactory\views\main.html" />
     <Content Include="templateUrls\child1.html" />
     <Content Include="app\js\controllers\UserController.js" />
     <Content Include="app\js\views\user.html" />
@@ -143,7 +162,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\js\lib\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
