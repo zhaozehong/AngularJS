@@ -13,11 +13,7 @@ app.controller("MainController", MainController);
 app.directive('sfchartelement', function ($location) {
   return {
     scope: {
-      legend: "=legend11",
-      item: "=item11",
-      data: "=data11",
       charttype: "@",
-
       next: "&nextUrl"
     },
     restrict: 'E',
