@@ -73,6 +73,7 @@
     <Content Include="Scripts\echarts.js" />
     <Content Include="Scripts\world.js" />
     <Content Include="SmartFactory\img\angularjs-logo.png" />
+    <Content Include="SmartFactory\img\Generic.png" />
     <Content Include="SmartFactory\sfchart.js" />
     <Content Include="app\js\views\ATEST.html" />
     <Content Include="app\js\views\sfchart.html" />
