@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html ng-app="cartApp">
+<head>
+  <meta charset="UTF-8">
+  <title>购物车</title>
+  <!--<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>-->
+  <script src="../Scripts/angular.js"></script>
+</head>
+<body ng-controller="cartController">
+  <h1>用ng-repeat循环</h1>
+  <div>
+    <table class="table">
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>description</th>
+        <th>action</th>
+      </tr>
+      <tr ng-repeat="p in products">
+        <td>{{p.id}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.description}}</td>
+        <td><a href="#">Buy</a></td>
+      </tr>
+    </table>
+  </div>
+  <h1>改进-用ng-repeat-start和ng-repeat-end精确控制循环</h1>
+  <div>
+    <table class="table table-bordered">
+      <tr ng-repeat-start="p in products">
+        <td>{{p.name}}</td>
+        <td rowspan="2"><a href="#">Buy</a></td>
+      </tr>
+      <tr>
+        <td>{{p.id}}</td>
+        <td>{{p.id}}</td>
+        <td>{{p.id}}</td>
+      </tr>
+      <tr>
+        <td>{{p.id}}</td>
+        <td rowspan="2">ZEHONG</td>
+        <td>{{p.id}}</td>
+      </tr>
+      <tr>
+        <td>p.id</td>
+        <td>p.id</td>
+        <td>p.id</td>
+      </tr>
+      <tr ng-repeat-end>
+        <td>{{p.description}}</td>
+      </tr>
+    </table>
+  </div>
+  <script language="JavaScript">
+    var app = angular.module("cartApp", []);
+    app.controller('cartController', function ($scope) {
+      $scope.products = [
+        {
+          id: 1,
+          name: 'Product 1',
+          description: 'Product 1 description.'
+        },
+        {
+          id: 2,
+          name: 'Product 2',
+          description: 'Product 2 description.'
+        },
+        {
+          id: 3,
+          name: 'Product 3',
+          description: 'Product 3 description.'
+        }
+      ];
+    });
+  </script>
+</body>
+</html>

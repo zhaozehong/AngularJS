@@ -68,6 +68,7 @@
     <Content Include="app\js\controllers\User1Controller.js" />
     <Content Include="app\js\directives.js" />
     <Content Include="app\js\app.js" />
+    <Content Include="TestPages\ngRepeatStartTest.html" />
     <Content Include="Scripts\china.js" />
     <Content Include="Scripts\echarts-gl.min.js" />
     <Content Include="Scripts\echarts.js" />
@@ -82,8 +83,8 @@
     <Content Include="new\css\font-awesome.css" />
     <Content Include="new\EditProfile.html" />
     <Content Include="new\EventDetails.html" />
-    <Content Include="Chart.html" />
-    <Content Include="DirectiveTestPage.html" />
+    <Content Include="TestPages\Chart.html" />
+    <Content Include="TestPages\DirectiveTestPage.html" />
     <Content Include="app\js\services\github.js" />
     <Content Include="app\js\views\main.html" />
     <Content Include="app\js\views\repo.html" />
