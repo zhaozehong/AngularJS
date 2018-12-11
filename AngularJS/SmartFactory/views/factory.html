@@ -1,8 +1,9 @@
 ﻿<div>
+  <h3>{{name}}</h3>
   <div class="col-md-4">
-    <sfchartelement charttype="{{charttype}}" next-url="getNextUrl(params)"></sfchartelement>
+    <sfchartelement data="data" charttype="{{charttype}}"></sfchartelement>
   </div>
   <div class="col-md-8">
-    <sfchartelement charttype="multitree" next-url="getNextUrl(params)"></sfchartelement>
+    <sfchartelement data="data" charttype="multitree" interact="chartInteraction(chart, params)"></sfchartelement>
   </div>
 </div>

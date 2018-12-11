@@ -11,6 +11,10 @@
   width: 100px;
   height: 100px;
 }
+.largeImg {
+  width: 90%;
+  height: 90%;
+}
 
 div {
   height: 100%;

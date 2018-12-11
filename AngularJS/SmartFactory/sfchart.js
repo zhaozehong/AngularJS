@@ -1,49 +1,49 @@
 ﻿'user strict'
 
 var sfchart = function () {
-  let getEChartOption = function (charttype, xxx) {
+  let getEChartOption = function (charttype, data) {
     if (charttype == "line") {
-      return getLineOption(xxx);
+      return getLineOption();
     }
     else if (charttype == "multiline") {
       return getMultiLineOption();
     }
     else if (charttype == "stackedarea") {
-      return getStackedAreaOption(xxx);
+      return getStackedAreaOption();
     }
     else if (charttype == "bar") {
-      return getBarOption(xxx);
+      return getBarOption();
     }
     else if (charttype == "pie") {
-      return getPieOption(xxx);
+      return getPieOption();
     }
     else if (charttype == "radar") {
-      return getRadarOption(xxx);
+      return getRadarOption();
     }
     else if (charttype == "sunburst") {
-      return getSunburstOption(xxx);
+      return getSunburstOption();
     }
     else if (charttype == "heatmap") {
-      return getHeatmapOption(xxx);
+      return getHeatmapOption();
     }
     else if (charttype == "gaugecar") {
-      return getGaugeCarOption(xxx);
+      return getGaugeCarOption();
     }
     else if (charttype == "bar3d") {
-      return get3dBarOption(xxx);
+      return get3dBarOption();
     }
     else if (charttype == "map2d") {
-      return get2dMapOption(xxx);
+      return get2dMapOption();
     }
     else if (charttype == "map3d") {
-      return get3dMapOption(xxx);
+      return get3dMapOption();
     }
     else if (charttype == "multitree") {
-      return getMultiTreeOption(xxx);
+      return getMultiTreeOption();
     }
 
 
-    function getLineOption(xxx) {
+    function getLineOption() {
       var legend = ["PH值", "溶解氧", "电导率", "温度值", "浊度值"];
       var item = ["8:45", "8:47", "8:49", "8:51", "8:53", "8:55", "8:57", "8:59"];
       var data = [
@@ -88,16 +88,16 @@ var sfchart = function () {
         }()
       };
     }
-    function getMultiLineOption(xxx) {
+    function getMultiLineOption() {
       return {
         title: {
-          text: '折线图堆叠'
+          text: 'Multi Line'
         },
         //tooltip: {
         //  trigger: 'axis'
         //},
         legend: {
-          data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+          data: data.multiline.legend
         },
         grid: {
           left: '3%',
@@ -105,54 +105,31 @@ var sfchart = function () {
           bottom: '3%',
           containLabel: true
         },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          data: data.multiline.xAxisData
         },
         yAxis: {
-          type: 'value'
+          type: "value"
         },
-        series: [
-          {
-            name: '邮件营销',
-            type: 'line',
-            stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-            name: '联盟广告',
-            type: 'line',
-            stack: '总量',
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: '视频广告',
-            type: 'line',
-            stack: '总量',
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: '直接访问',
-            type: 'line',
-            stack: '总量',
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: '搜索引擎',
-            type: 'line',
-            stack: '总量',
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+
+        series: function () {
+          var serie = [];
+          for (var i = 0; i < data.multiline.legend.length; i++) {
+            var item = {
+              name: data.multiline.legend[i],
+              type: 'line',
+              //stack: "总量",
+              data: data.multiline.data[i]
+            };
+            serie.push(item);
           }
-        ]
+          return serie;
+        }()
       };
     }
-    function getStackedAreaOption(xxx) {
+    function getStackedAreaOption() {
       var data = ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎'];
       var seriesDatas = [
         { name: '邮件营销', label: {}, data: [120, 132, 101, 134, 90, 230, 210] },
@@ -227,7 +204,7 @@ var sfchart = function () {
         }()
       };
     }
-    function getBarOption(xxx) {
+    function getBarOption() {
       var data = [120, 200, 150, 80, 70, 110, 130];
       return {
         xAxis: {
@@ -243,35 +220,29 @@ var sfchart = function () {
         }]
       };
     }
-    function getPieOption(xxx) {
+    function getPieOption() {
       return option = {
-        title: {
-          text: '某站点用户访问来源',
-          subtext: '纯属虚构',
-          x: 'center'
-        },
+        //title: {
+        //  text: 'Pie Chart',
+        //  subtext: "not a real case",
+        //  x: 'center'
+        //},
         //tooltip: {
         //  trigger: 'item',
         //  formatter: "{a} <br/>{b} : {c} ({d}%)"
         //},
         //legend: {
-        //  orient: 'vertical',
+        //  orient: 'horizontal',
         //  left: 'left',
-        //  data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+        //  data: data.pie.legend
         //},
         series: [
           {
-            name: '访问来源',
+            //name: '访问来源',
             type: 'pie',
             radius: '55%',
-            center: ['50%', '60%'],
-            data: [
-              { value: 335, name: '直接访问' },
-              { value: 310, name: '邮件营销' },
-              { value: 234, name: '联盟广告' },
-              { value: 135, name: '视频广告' },
-              { value: 1548, name: '搜索引擎' }
-            ],
+            center: ['50%', '50%'],
+            data: data.pie.data,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -283,7 +254,7 @@ var sfchart = function () {
         ]
       };
     }
-    function getRadarOption(xxx) {
+    function getRadarOption() {
       return {
         title: {
           text: '多雷达图'
@@ -375,7 +346,7 @@ var sfchart = function () {
         ]
       };
     }
-    function getSunburstOption(xxx) {
+    function getSunburstOption() {
       var data = [{
         name: 'Grandpa',
         children: [{
@@ -464,7 +435,7 @@ var sfchart = function () {
         }
       };
     }
-    function getHeatmapOption(xxx) {
+    function getHeatmapOption() {
       var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
         '7a', '8a', '9a', '10a', '11a',
         '12p', '1p', '2p', '3p', '4p', '5p',
@@ -527,221 +498,50 @@ var sfchart = function () {
         }]
       };
     }
-    function getGaugeCarOption(xxx) {
+    function getGaugeCarOption() {
       return {
         //tooltip: {
         //  formatter: "{a} <br/>{c} {b}"
         //},
         toolbox: {
-          show: true,
+          show: false,
           feature: {
             restore: { show: true },
             saveAsImage: { show: true }
           }
         },
-        series: [
-          {
-            name: '速度',
-            type: 'gauge',
-            z: 3,
-            min: 0,
-            max: 220,
-            splitNumber: 11,
-            radius: '50%',
-            axisLine: {            // 坐标轴线
-              lineStyle: {       // 属性lineStyle控制线条样式
-                width: 10
-              }
-            },
-            axisTick: {            // 坐标轴小标记
-              length: 15,        // 属性length控制线长
-              lineStyle: {       // 属性lineStyle控制线条样式
-                color: 'auto'
-              }
-            },
-            splitLine: {           // 分隔线
-              length: 20,         // 属性length控制线长
-              lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                color: 'auto'
-              }
-            },
-            axisLabel: {
-              backgroundColor: 'auto',
-              borderRadius: 2,
-              color: '#eee',
-              padding: 3,
-              textShadowBlur: 2,
-              textShadowOffsetX: 1,
-              textShadowOffsetY: 1,
-              textShadowColor: '#222'
-            },
-            title: {
-              // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-              fontWeight: 'bolder',
-              fontSize: 20,
-              fontStyle: 'italic'
-            },
-            detail: {
-              // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-              formatter: function (value) {
-                value = (value + '').split('.');
-                value.length < 2 && (value.push('00'));
-                return ('00' + value[0]).slice(-2)
-                  + '.' + (value[1] + '00').slice(0, 2);
+        series: function () {
+          var serie = [];
+          for (var i = 0; i < data.gauge.length; i++) {
+            var item = {
+              type: "gauge",
+              name: data.gauge[i].name,
+              min: data.gauge[i].min,
+              max: data.gauge[i].max,
+              splitNumber: data.gauge[i].splitNumber,
+              radius: data.gauge[i].radius,
+              data: data.gauge[i].data,
+              axisLine: {
+                lineStyle: { width: 8 }
               },
-              fontWeight: 'bolder',
-              borderRadius: 3,
-              backgroundColor: '#444',
-              borderColor: '#aaa',
-              shadowBlur: 5,
-              shadowColor: '#333',
-              shadowOffsetX: 0,
-              shadowOffsetY: 3,
-              borderWidth: 2,
-              textBorderColor: '#000',
-              textBorderWidth: 2,
-              textShadowBlur: 2,
-              textShadowColor: '#fff',
-              textShadowOffsetX: 0,
-              textShadowOffsetY: 0,
-              fontFamily: 'Arial',
-              width: 100,
-              color: '#eee',
-              rich: {}
-            },
-            data: [{ value: 40, name: 'km/h' }]
-          },
-          {
-            name: '转速',
-            type: 'gauge',
-            center: ['20%', '55%'],    // 默认全局居中
-            radius: '35%',
-            min: 0,
-            max: 7,
-            endAngle: 45,
-            splitNumber: 7,
-            axisLine: {            // 坐标轴线
-              lineStyle: {       // 属性lineStyle控制线条样式
-                width: 8
-              }
-            },
-            axisTick: {            // 坐标轴小标记
-              length: 12,        // 属性length控制线长
-              lineStyle: {       // 属性lineStyle控制线条样式
-                color: 'auto'
-              }
-            },
-            splitLine: {           // 分隔线
-              length: 20,         // 属性length控制线长
-              lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                color: 'auto'
-              }
-            },
-            pointer: {
-              width: 5
-            },
-            title: {
-              offsetCenter: [0, '-30%'],       // x, y，单位px
-            },
-            detail: {
-              // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-              fontWeight: 'bolder'
-            },
-            data: [{ value: 1.5, name: 'x1000 r/min' }]
-          },
-          {
-            name: '油表',
-            type: 'gauge',
-            center: ['77%', '50%'],    // 默认全局居中
-            radius: '25%',
-            min: 0,
-            max: 2,
-            startAngle: 135,
-            endAngle: 45,
-            splitNumber: 2,
-            axisLine: {            // 坐标轴线
-              lineStyle: {       // 属性lineStyle控制线条样式
-                width: 8
-              }
-            },
-            axisTick: {            // 坐标轴小标记
-              splitNumber: 5,
-              length: 10,        // 属性length控制线长
-              lineStyle: {        // 属性lineStyle控制线条样式
-                color: 'auto'
-              }
-            },
-            axisLabel: {
-              formatter: function (v) {
-                switch (v + '') {
-                  case '0': return 'E';
-                  case '1': return 'Gas';
-                  case '2': return 'F';
-                }
-              }
-            },
-            splitLine: {           // 分隔线
-              length: 15,         // 属性length控制线长
-              lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                color: 'auto'
-              }
-            },
-            pointer: {
-              width: 2
-            },
-            title: {
-              show: false
-            },
-            detail: {
-              show: false
-            },
-            data: [{ value: 0.5, name: 'gas' }]
-          },
-          {
-            name: '水表',
-            type: 'gauge',
-            center: ['77%', '50%'],    // 默认全局居中
-            radius: '25%',
-            min: 0,
-            max: 2,
-            startAngle: 315,
-            endAngle: 225,
-            splitNumber: 2,
-            axisLine: {            // 坐标轴线
-              lineStyle: {       // 属性lineStyle控制线条样式
-                width: 8
-              }
-            },
-            axisTick: {            // 坐标轴小标记
-              show: false
-            },
-            axisLabel: {
-              formatter: function (v) {
-                switch (v + '') {
-                  case '0': return 'H';
-                  case '1': return 'Water';
-                  case '2': return 'C';
-                }
-              }
-            },
-            splitLine: {           // 分隔线
-              length: 15,         // 属性length控制线长
-              lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                color: 'auto'
-              }
-            },
-            pointer: {
-              width: 2
-            },
-            title: {
-              show: false
-            },
-            detail: {
-              show: false
-            },
-            data: [{ value: 0.5, name: 'gas' }]
+              axisTick: { show: false },
+            };
+            if (data.gauge[i].z) { item.z = data.gauge[i].z; }
+            if (data.gauge[i].title) { item.title = data.gauge[i].title; }
+            if (data.gauge[i].center) { item.center = data.gauge[i].center; }
+            if (data.gauge[i].startAngle) { item.startAngle = data.gauge[i].startAngle; }
+            if (data.gauge[i].endAngle) { item.endAngle = data.gauge[i].endAngle; }
+            if (data.gauge[i].axisLabel) { item.axisLabel = data.gauge[i].axisLabel; }
+            if (data.gauge[i].axisLine) { item.axisLine = data.gauge[i].axisLine; }
+            if (data.gauge[i].axisTick) { item.axisTick = data.gauge[i].axisTick; }
+            if (data.gauge[i].splitLine) { item.splitLine = data.gauge[i].splitLine; }
+            if (data.gauge[i].pointer) { item.pointer = data.gauge[i].pointer; }
+            if (data.gauge[i].detail) { item.detail = data.gauge[i].detail; }
+
+            serie.push(item);
           }
-        ]
+          return serie;
+        }()
       };
 
       setInterval(function () {
@@ -752,7 +552,7 @@ var sfchart = function () {
         myChart.setOption(option, true);
       }, 2000);
     }
-    function get3dBarOption(xxx) {
+    function get3dBarOption() {
 
       var hours = [
         '12a', '1a', '2a', '3a', '4a', '5a', '6a',
@@ -1175,7 +975,7 @@ var sfchart = function () {
         ]
       };
     }
-    function get3dMapOption(xxx) {
+    function get3dMapOption() {
       let geoCoordMap = {
         "海门": [121.15, 31.89],
         "鄂尔多斯": [109.781327, 39.608266],
@@ -1992,227 +1792,28 @@ var sfchart = function () {
       };
     }
     function getMultiTreeOption() {
-      var data1 = {
-        "name": "flare",
-        "children": [
-          {
-            "name": "data",
-            "children": [
-              {
-                "name": "converters",
-                "children": [
-                  { "name": "Converters", "value": 721 },
-                  { "name": "DelimitedTextConverter", "value": 4294 }
-                ]
-              },
-              {
-                "name": "DataUtil",
-                "value": 3322
-              }
-            ]
-          },
-          {
-            "name": "display",
-            "children": [
-              { "name": "DirtySprite", "value": 8833 },
-              { "name": "LineSprite", "value": 1732 },
-              { "name": "RectSprite", "value": 3623 }
-            ]
-          },
-          {
-            "name": "flex",
-            "children": [
-              { "name": "FlareVis", "value": 4116 }
-            ]
-          },
-          {
-            "name": "query",
-            "children": [
-              { "name": "AggregateExpression", "value": 1616 },
-              { "name": "And", "value": 1027 },
-              { "name": "Arithmetic", "value": 3891 },
-              { "name": "Average", "value": 891 },
-              { "name": "BinaryExpression", "value": 2893 },
-              { "name": "Comparison", "value": 5103 },
-              { "name": "CompositeExpression", "value": 3677 },
-              { "name": "Count", "value": 781 },
-              { "name": "DateUtil", "value": 4141 },
-              { "name": "Distinct", "value": 933 },
-              { "name": "Expression", "value": 5130 },
-              { "name": "ExpressionIterator", "value": 3617 },
-              { "name": "Fn", "value": 3240 },
-              { "name": "If", "value": 2732 },
-              { "name": "IsA", "value": 2039 },
-              { "name": "Literal", "value": 1214 },
-              { "name": "Match", "value": 3748 },
-              { "name": "Maximum", "value": 843 },
-              {
-                "name": "methods",
-                "children": [
-                  { "name": "add", "value": 593 },
-                  { "name": "and", "value": 330 },
-                  { "name": "average", "value": 287 },
-                  { "name": "count", "value": 277 },
-                  { "name": "distinct", "value": 292 },
-                  { "name": "div", "value": 595 },
-                  { "name": "eq", "value": 594 },
-                  { "name": "fn", "value": 460 },
-                  { "name": "gt", "value": 603 },
-                  { "name": "gte", "value": 625 },
-                  { "name": "iff", "value": 748 },
-                  { "name": "isa", "value": 461 },
-                  { "name": "lt", "value": 597 },
-                  { "name": "lte", "value": 619 },
-                  { "name": "max", "value": 283 },
-                  { "name": "min", "value": 283 },
-                  { "name": "mod", "value": 591 },
-                  { "name": "mul", "value": 603 },
-                  { "name": "neq", "value": 599 },
-                  { "name": "not", "value": 386 },
-                  { "name": "or", "value": 323 },
-                  { "name": "orderby", "value": 307 },
-                  { "name": "range", "value": 772 },
-                  { "name": "select", "value": 296 },
-                  { "name": "stddev", "value": 363 },
-                  { "name": "sub", "value": 600 },
-                  { "name": "sum", "value": 280 },
-                  { "name": "update", "value": 307 },
-                  { "name": "variance", "value": 335 },
-                  { "name": "where", "value": 299 },
-                  { "name": "xor", "value": 354 },
-                  { "name": "_", "value": 264 }
-                ]
-              },
-              { "name": "Minimum", "value": 843 },
-              { "name": "Not", "value": 1554 },
-              { "name": "Or", "value": 970 },
-              { "name": "Query", "value": 13896 },
-              { "name": "Range", "value": 1594 },
-              { "name": "StringUtil", "value": 4130 },
-              { "name": "Sum", "value": 791 },
-              { "name": "Variable", "value": 1124 },
-              { "name": "Variance", "value": 1876 },
-              { "name": "Xor", "value": 1101 }
-            ]
-          },
-          {
-            "name": "scale",
-            "children": [
-              { "name": "IScaleMap", "value": 2105 },
-              { "name": "LinearScale", "value": 1316 },
-              { "name": "LogScale", "value": 3151 },
-              { "name": "OrdinalScale", "value": 3770 },
-              { "name": "QuantileScale", "value": 2435 },
-              { "name": "QuantitativeScale", "value": 4839 },
-              { "name": "RootScale", "value": 1756 },
-              { "name": "Scale", "value": 4268 },
-              { "name": "ScaleType", "value": 1821 },
-              { "name": "TimeScale", "value": 5833 }
-            ]
-          }
-        ]
-      };
-
-      var data2 = {
-        "name": "flare",
-        "children": [
-          {
-            "name": "flex",
-            "children": [
-              { "name": "FlareVis", "value": 4116 }
-            ]
-          },
-          {
-            "name": "scale",
-            "children": [
-              { "name": "IScaleMap", "value": 2105 },
-              { "name": "LinearScale", "value": 1316 },
-              { "name": "LogScale", "value": 3151 },
-              { "name": "OrdinalScale", "value": 3770 },
-              { "name": "QuantileScale", "value": 2435 },
-              { "name": "QuantitativeScale", "value": 4839 },
-              { "name": "RootScale", "value": 1756 },
-              { "name": "Scale", "value": 4268 },
-              { "name": "ScaleType", "value": 1821 },
-              { "name": "TimeScale", "value": 5833 }
-            ]
-          },
-          {
-            "name": "display",
-            "children": [
-              { "name": "DirtySprite", "value": 8833 }
-            ]
-          }
-        ]
-      };
-
       return {
-        tooltip: {
-          trigger: 'item',
-          triggerOn: 'mousemove'
-        },
         legend: {
           top: '2%',
           left: '3%',
           orient: 'vertical',
-          data: [{
-            name: 'tree1',
-            icon: 'rectangle'
-          },
-          {
-            name: 'tree2',
-            icon: 'rectangle'
-          }],
+          data: [
+            {
+              name: 'tree',
+              icon: 'rectangle'
+            }],
           borderColor: '#c23531'
         },
         series: [
           {
+            name: 'tree',
             type: 'tree',
-
-            name: 'tree1',
-
-            data: [data1],
-
-            top: '5%',
-            left: '7%',
-            bottom: '2%',
-            right: '60%',
-
-            symbolSize: 7,
-
-            label: {
-              normal: {
-                position: 'left',
-                verticalAlign: 'middle',
-                align: 'right'
-              }
-            },
-
-            leaves: {
-              label: {
-                normal: {
-                  position: 'right',
-                  verticalAlign: 'middle',
-                  align: 'left'
-                }
-              }
-            },
-
-            expandAndCollapse: true,
-
-            animationDuration: 550,
-            animationDurationUpdate: 750
-
-          },
-          {
-            type: 'tree',
-            name: 'tree2',
-            data: [data2],
+            data: [data.multitree],
 
             top: '20%',
-            left: '60%',
-            bottom: '22%',
-            right: '18%',
+            left: '20%',
+            bottom: '20%',
+            right: '20%',
 
             symbolSize: 7,
 
@@ -2241,8 +1842,6 @@ var sfchart = function () {
           }
         ]
       };
-
-
     }
   }
 
