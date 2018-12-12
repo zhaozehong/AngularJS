@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller("MachineController", function ($scope, $routeParams) {
+app.controller("MachineController", function ($scope, $location, $routeParams) {
   var pulseData = {
     stacked: true,
     xAxisData: ["Mon.", "Tue.", "Wen.", "Thu.", "Fri.", "Sat.", "Sun."],
@@ -258,4 +258,7 @@ app.controller("MachineController", function ($scope, $routeParams) {
       }()
     }
   };
+  $scope.imageClick = function () {
+    $location.path("/image/" + $routeParams.name);
+  }
 });

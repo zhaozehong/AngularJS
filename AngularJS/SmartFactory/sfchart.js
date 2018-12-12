@@ -41,6 +41,12 @@ var sfchart = function () {
     else if (charttype == "multitree") {
       return getMultiTreeOption();
     }
+    else if (charttype == "candlestick") {
+      return getCandlestickOption();
+    }
+    else if (charttype == "OHLC") {
+      return getOHLCOption();
+    }
 
 
     function getLineOption() {
@@ -1842,6 +1848,348 @@ var sfchart = function () {
           }
         ]
       };
+    }
+    function getCandlestickOption() {
+      var upColor = '#ec0000';
+      var upBorderColor = '#8A0000';
+      var downColor = '#00da3c';
+      var downBorderColor = '#008F28';
+
+      var dataCount = 2e5;
+      var data = generateOHLC(dataCount);
+
+      return {
+        dataset: {
+          source: data
+        },
+        title: {
+          text: 'Data Amount: ' + echarts.format.addCommas(dataCount)
+        },
+        //tooltip: {
+        //  trigger: 'axis',
+        //  axisPointer: {
+        //    type: 'line'
+        //  }
+        //},
+        //toolbox: {
+        //  feature: {
+        //    dataZoom: {
+        //      yAxisIndex: false
+        //    },
+        //  }
+        //},
+        grid: [
+          {
+            left: '10%',
+            right: '10%',
+            bottom: 200
+          },
+          {
+            left: '10%',
+            right: '10%',
+            height: 80,
+            bottom: 80
+          }
+        ],
+        xAxis: [
+          {
+            type: 'category',
+            scale: true,
+            boundaryGap: false,
+            // inverse: true,
+            axisLine: { onZero: false },
+            splitLine: { show: false },
+            splitNumber: 20,
+            min: 'dataMin',
+            max: 'dataMax'
+          },
+          {
+            type: 'category',
+            gridIndex: 1,
+            scale: true,
+            boundaryGap: false,
+            axisLine: { onZero: false },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
+            splitNumber: 20,
+            min: 'dataMin',
+            max: 'dataMax'
+          }
+        ],
+        yAxis: [
+          {
+            scale: true,
+            splitArea: {
+              show: true
+            }
+          },
+          {
+            scale: true,
+            gridIndex: 1,
+            splitNumber: 2,
+            axisLabel: { show: false },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            splitLine: { show: false }
+          }
+        ],
+        dataZoom: [
+          {
+            type: 'inside',
+            xAxisIndex: [0, 1],
+            start: 10,
+            end: 100
+          },
+          {
+            show: true,
+            xAxisIndex: [0, 1],
+            type: 'slider',
+            bottom: 10,
+            start: 10,
+            end: 100,
+            handleIcon: 'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            handleSize: '105%'
+          }
+        ],
+        visualMap: {
+          show: false,
+          seriesIndex: 1,
+          dimension: 6,
+          pieces: [{
+            value: 1,
+            color: upColor
+          }, {
+            value: -1,
+            color: downColor
+          }]
+        },
+        series: [
+          {
+            type: 'candlestick',
+            itemStyle: {
+              color: upColor,
+              color0: downColor,
+              borderColor: upBorderColor,
+              borderColor0: downBorderColor
+            },
+            encode: {
+              x: 0,
+              y: [1, 4, 3, 2]
+            }
+          },
+          {
+            name: 'Volumn',
+            type: 'bar',
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            itemStyle: {
+              color: '#7fbe9e'
+            },
+            large: true,
+            encode: {
+              x: 0,
+              y: 5
+            }
+          }
+        ]
+      };
+
+      function generateOHLC(count) {
+        var data = [];
+
+        var xValue = +new Date(2011, 0, 1);
+        var minute = 60 * 1000;
+        var baseValue = Math.random() * 12000;
+        var boxVals = new Array(4);
+        var dayRange = 12;
+
+        for (var i = 0; i < count; i++) {
+          baseValue = baseValue + Math.random() * 20 - 10;
+
+          for (var j = 0; j < 4; j++) {
+            boxVals[j] = (Math.random() - 0.5) * dayRange + baseValue;
+          }
+          boxVals.sort();
+
+          var idxRandom = Math.random();
+          var openIdx = Math.round(Math.random() * 3);
+          var closeIdx = Math.round(Math.random() * 2);
+          if (closeIdx === openIdx) {
+            closeIdx++;
+          }
+          var volumn = boxVals[3] * (1000 + Math.random() * 500);
+
+          // ['open', 'close', 'lowest', 'highest', 'volumn']
+          // [1, 4, 3, 2]
+          data[i] = [
+            echarts.format.formatTime('yyyy-MM-dd\nhh:mm:ss', xValue += minute),
+            +boxVals[openIdx].toFixed(2), // open
+            +boxVals[3].toFixed(2), // highest
+            +boxVals[0].toFixed(2), // lowest
+            +boxVals[closeIdx].toFixed(2),  // close
+            volumn.toFixed(0),
+            getSign(data, i, +boxVals[openIdx], +boxVals[closeIdx], 4) // sign
+          ];
+        }
+
+        return data;
+
+        function getSign(data, dataIndex, openVal, closeVal, closeDimIdx) {
+          var sign;
+          if (openVal > closeVal) {
+            sign = -1;
+          }
+          else if (openVal < closeVal) {
+            sign = 1;
+          }
+          else {
+            sign = dataIndex > 0
+              // If close === open, compare with close of last record
+              ? (data[dataIndex - 1][closeDimIdx] <= closeVal ? 1 : -1)
+              // No record of previous, set to be positive
+              : 1;
+          }
+
+          return sign;
+        }
+      }
+    }
+    function getOHLCOption() {
+      function renderItem(params, api) {
+        var xValue = api.value(0);
+        var openPoint = api.coord([xValue, api.value(1)]);
+        var closePoint = api.coord([xValue, api.value(2)]);
+        var lowPoint = api.coord([xValue, api.value(3)]);
+        var highPoint = api.coord([xValue, api.value(4)]);
+        var halfWidth = api.size([1, 0])[0] * 0.35;
+        var style = api.style({
+          stroke: api.visual('color')
+        });
+
+        return {
+          type: 'group',
+          children: [{
+            type: 'line',
+            shape: {
+              x1: lowPoint[0], y1: lowPoint[1],
+              x2: highPoint[0], y2: highPoint[1]
+            },
+            style: style
+          }, {
+            type: 'line',
+            shape: {
+              x1: openPoint[0], y1: openPoint[1],
+              x2: openPoint[0] - halfWidth, y2: openPoint[1]
+            },
+            style: style
+          }, {
+            type: 'line',
+            shape: {
+              x1: closePoint[0], y1: closePoint[1],
+              x2: closePoint[0] + halfWidth, y2: closePoint[1]
+            },
+            style: style
+          }]
+        };
+      }
+      return {
+        backgroundColor: '#eee',
+        animation: false,
+        legend: data.OHLC.legend,
+        //tooltip: {
+        //  trigger: 'axis',
+        //  axisPointer: { type: 'cross' },
+        //  backgroundColor: 'rgba(245, 245, 245, 0.8)',
+        //  borderWidth: 1,
+        //  borderColor: '#ccc',
+        //  padding: 10,
+        //  textStyle: { color: '#000' },
+        //  position: function (pos, params, el, elRect, size) {
+        //    var obj = { top: 10 };
+        //    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        //    return obj;
+        //  },
+        //  extraCssText: 'width: 170px'
+        //},
+        axisPointer: {
+          link: { xAxisIndex: 'all' },
+          label: {
+            backgroundColor: '#777'
+          }
+        },
+        //toolbox: {
+        //  feature: {
+        //    dataZoom: {
+        //      yAxisIndex: false
+        //    },
+        //    brush: {
+        //      type: ['lineX', 'clear']
+        //    }
+        //  }
+        //},
+        grid: [
+          {
+            left: '10%',
+            right: '8%',
+            bottom: 150
+          }
+        ],
+        xAxis: [
+          {
+            type: 'category',
+            data: data.OHLC.data.categoryData,
+            scale: true,
+            boundaryGap: false,
+            axisLine: { onZero: false },
+            splitLine: { show: false },
+            splitNumber: 20,
+            min: 'dataMin',
+            max: 'dataMax',
+            axisPointer: {
+              z: 100
+            }
+          }
+        ],
+        yAxis: [
+          {
+            scale: true,
+            splitArea: {
+              show: true
+            }
+          }
+        ],
+        dataZoom: [
+          {
+            type: 'inside',
+            start: 98,
+            end: 100,
+            minValueSpan: 10
+          },
+          {
+            show: true,
+            type: 'slider',
+            bottom: 60,
+            start: 98,
+            end: 100,
+            minValueSpan: 10
+          }
+        ],
+        series: [
+          {
+            name: 'Dow-Jones index',
+            type: 'custom',
+            renderItem: renderItem,
+            dimensions: [null, 'open', 'close', 'lowest', 'highest'],
+            encode: {
+              x: 0,
+              y: [1, 2, 3, 4],
+              tooltip: [1, 2, 3, 4]
+            },
+            data: data.OHLC.data.values
+          }
+        ]
+      }
     }
   }
 

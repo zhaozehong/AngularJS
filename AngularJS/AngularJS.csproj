@@ -68,7 +68,10 @@
     <Content Include="app\js\controllers\User1Controller.js" />
     <Content Include="app\js\directives.js" />
     <Content Include="app\js\app.js" />
+    <Content Include="SmartFactory\controllers\ImageController.js" />
     <Content Include="SmartFactory\directives.js" />
+    <Content Include="SmartFactory\services\dataservices.js" />
+    <Content Include="SmartFactory\views\image.html" />
     <Content Include="TestPages\ngRepeatStartTest.html" />
     <Content Include="Scripts\china.js" />
     <Content Include="Scripts\echarts-gl.min.js" />
