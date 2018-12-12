@@ -1855,7 +1855,7 @@ var sfchart = function () {
       var downColor = '#00da3c';
       var downBorderColor = '#008F28';
 
-      var dataCount = 2e5;
+      var dataCount = 2e4;
       var data = generateOHLC(dataCount);
 
       return {
@@ -1865,12 +1865,13 @@ var sfchart = function () {
         title: {
           text: 'Data Amount: ' + echarts.format.addCommas(dataCount)
         },
-        //tooltip: {
-        //  trigger: 'axis',
-        //  axisPointer: {
-        //    type: 'line'
-        //  }
-        //},
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'line'
+          },
+          extraCssText: 'width:160px;height:150px;'
+        },
         //toolbox: {
         //  feature: {
         //    dataZoom: {
@@ -2097,21 +2098,16 @@ var sfchart = function () {
         backgroundColor: '#eee',
         animation: false,
         legend: data.OHLC.legend,
-        //tooltip: {
-        //  trigger: 'axis',
-        //  axisPointer: { type: 'cross' },
-        //  backgroundColor: 'rgba(245, 245, 245, 0.8)',
-        //  borderWidth: 1,
-        //  borderColor: '#ccc',
-        //  padding: 10,
-        //  textStyle: { color: '#000' },
-        //  position: function (pos, params, el, elRect, size) {
-        //    var obj = { top: 10 };
-        //    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
-        //    return obj;
-        //  },
-        //  extraCssText: 'width: 170px'
-        //},
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'cross' },
+          backgroundColor: 'rgba(245, 245, 245, 0.8)',
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: 10,
+          textStyle: { color: '#000' },
+          extraCssText: 'width:160px;height:150px;'
+        },
         axisPointer: {
           link: { xAxisIndex: 'all' },
           label: {
