@@ -1,9 +1,12 @@
 ﻿<div>
   <h3>{{name}}</h3>
   <div class="col-md-4">
-    <sfchartelement data="data" charttype="{{charttype}}"></sfchartelement>
+    <sfchartelement data="data" charttype="pie"></sfchartelement>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-4">
+    <sfchartelement data="data" charttype="ring1"></sfchartelement>
+  </div>
+  <div class="col-md-4">
     <sfchartelement data="data" charttype="multitree" interact="chartInteraction(chart, params)"></sfchartelement>
   </div>
 </div>

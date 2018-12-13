@@ -47,6 +47,12 @@ var sfchart = function () {
     else if (charttype == "OHLC") {
       return getOHLCOption();
     }
+    else if (charttype == "ring") {
+      return getRingOption();
+    }
+    else if (charttype == "ring1") {
+      return getRing1Option();
+    }
 
 
     function getLineOption() {
@@ -1841,7 +1847,7 @@ var sfchart = function () {
               }
             },
 
-            expandAndCollapse: true,
+           // expandAndCollapse: true,
 
             animationDuration: 550,
             animationDurationUpdate: 750
@@ -2186,6 +2192,220 @@ var sfchart = function () {
           }
         ]
       }
+    }
+    function getRingOption() {
+      // 圆环图各环节的名称和值(系列中各数据项的名称和值)
+      var data = [{
+        name: '其它',
+        value: 320,
+        color: '#0000FF'
+      }, {
+        name: '休闲裤',
+        value: 586,
+        color: '#00ffff'
+      }, {
+        name: '女士衬衫',
+        value: 874,
+        color: '#00ff00'
+      }, {
+        name: '运动服',
+        value: 725,
+        color: '#ffff00'
+      }];
+      // 圆环图各环节的颜色
+      var color = function () {
+        var serie = [];
+        for (var i = 0; i < data.length; i++) {
+          serie.push(data[i].color);
+          //var item = {
+          //  name: ,
+          //  type: 'line',
+          //  //stack: "总量",
+          //  data: data.multiline.data[i]
+          //};
+          //serie.push(item);
+        }
+        return serie;
+      }();
+
+      // 指定图表的配置项和数据
+      return {
+        backgroundColor: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [{
+            offset: 0, color: 'rgba(0,0,0,0.4)' // 0% 处的颜色
+          }, {
+            offset: 0.5, color: 'rgba(0,0,0,0.4)' 	// 50% 处的颜色
+          }, {
+            offset: 1, color: 'rgba(0,0,0,0.4)' // 100% 处的颜色
+          }],
+          globalCoord: false // 缺省为 false
+        },
+
+        // 标题
+        title: [{
+          text: '商城各服装销量对比',
+          top: '5%',
+          left: '3%',
+          textStyle: {
+            color: '#000',
+            fontSize: 18,
+          }
+        }],
+
+        // 图例
+        legend: [{
+          selectedMode: true, // 图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 false 关闭。
+          top: '10%',
+          left: 'center',
+          textStyle: { // 图例的公用文本样式。
+            fontSize: 14,
+            color: '#fff'
+          },
+          data: ['其它', '休闲裤', '女士衬衫', '运动服']
+        }],
+
+        // 提示框
+        tooltip: {
+          show: true, // 是否显示提示框
+          formatter: '{b} </br> 销量{c}件 </br> 占比{d}%', // 提示框显示内容,此处{b}表示各数据项名称，此项配置为默认显示项，{c}表示数据项的值，默认不显示，({d}%)表示数据项项占比，默认不显示。
+          extraCssText: 'width:160px;height:150px;'
+        },
+
+        // graphic 是原生图形元素组件。可以支持的图形元素包括：image, text, circle, sector, ring, polygon, polyline, rect, line, bezierCurve, arc, group,
+        graphic: {
+          type: 'text', // [ default: image ]用 setOption 首次设定图形元素时必须指定。image, text, circle, sector, ring, polygon, polyline, rect, line, bezierCurve, arc, group,
+          top: 'center', // 描述怎么根据父元素进行定位。top 和 bottom 只有一个可以生效。如果指定 top 或 bottom，则 shape 里的 y、cy 等定位属性不再生效。『父元素』是指：如果是顶层元素，父元素是 echarts 图表容器。如果是 group 的子元素，父元素就是 group 元素。
+          left: 'center', // 同上
+          style: {
+            text: '各服装销量对比', // 文本块文字。可以使用 \n 来换行。[ default: '' ]
+            fill: '#fff',  // 填充色。
+            fontSize: 16, // 字体大小
+            fontWeight: 'bold' // 文字字体的粗细，可选'normal'，'bold'，'bolder'，'lighter'
+          }
+        },
+
+        // 系列列表
+        series: [{
+          name: '圆环图系列名称',         // 系列名称
+          type: 'pie',                    // 系列类型 
+          center: ['50%', '50%'],           // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。[ default: ['50%', '50%'] ]
+          radius: ['30%', '45%'],         // 饼图的半径，数组的第一项是内半径，第二项是外半径。[ default: [0, '75%'] ]
+          hoverAnimation: true,           // 是否开启 hover 在扇区上的放大动画效果。[ default: true ]
+          color: color,                   // 圆环图的颜色
+          label: {                        // 饼图图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等.
+            normal: {
+              show: true,             // 是否显示标签[ default: false ]
+              position: 'outside',    // 标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
+              formatter: '{b} : {c}件'  // 标签内容
+            }
+          },
+          labelLine: {                    // 标签的视觉引导线样式,在 label 位置 设置为'outside'的时候会显示视觉引导线。
+            normal: {
+              show: true,             // 是否显示视觉引导线。
+              length: 15,             // 在 label 位置 设置为'outside'的时候会显示视觉引导线。
+              length2: 10,            // 视觉引导项第二段的长度。
+              lineStyle: {            // 视觉引导线的样式
+                //color: '#000',
+                //width: 1
+              }
+            }
+          },
+          data: data                      // 系列中的数据内容数组。
+        }]
+      };
+    }
+    function getRing1Option() {
+      // 圆环图各环节的名称和值(系列中各数据项的名称和值)
+      var dataSource = data.ring1;
+      var chartData = function () {
+        var legendSerie = [];
+        var colorSerie = [];
+        var dataSerie = [];
+        var total = 0;
+        for (var i = 0; i < dataSource.data.length; i++) {
+          var name = dataSource.data[i].name;
+          var color = dataSource.data[i].color;
+          var value = dataSource.data[i].value;
+          legendSerie.push(name);
+          colorSerie.push(color);
+          var item = {
+            name: name,
+            value: value
+          }
+          dataSerie.push(item);
+          total += value;
+        }
+        if (total != 0) {
+          percent = dataSource.data[0].value / total;
+        }
+
+        return {
+          legendSerie: legendSerie,
+          colorSerie: colorSerie, // 圆环图各环节的颜色
+          dataSerie: dataSerie,
+          percent: toPercent(percent)
+        };
+      }();
+
+      function toPercent(value) {
+        if (value == 0) {
+          return 0;
+        }
+        var str = Number(value * 100).toFixed();
+        str += "%";
+        return str;
+      }
+
+      if (dataSource.legend) {
+        dataSource.legend.data = chartData.legendSerie;
+      }
+      var graphic = dataSource.graphic;
+      if (graphic) {
+        graphic.style.text = chartData.percent;
+      }
+
+      // 指定图表的配置项和数据
+      return {
+        title: dataSource.title,
+        legend: dataSource.legend,
+        tooltip: dataSource.tooltip,
+        backgroundColor: dataSource.backgroundColor,
+        graphic: graphic,
+
+        // 系列列表
+        series: [{
+          name: '圆环图系列名称',         // 系列名称
+          type: 'pie',                    // 系列类型 
+          center: ['50%', '50%'],           // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。[ default: ['50%', '50%'] ]
+          radius: ['40%', '45%'],         // 饼图的半径，数组的第一项是内半径，第二项是外半径。[ default: [0, '75%'] ]
+          hoverAnimation: false,           // 是否开启 hover 在扇区上的放大动画效果。[ default: true ]
+          color: chartData.colorSerie,                   // 圆环图的颜色
+          label: {                        // 饼图图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等.
+            normal: {
+              show: false,             // 是否显示标签[ default: false ]
+              position: 'outside',    // 标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
+              formatter: '{b} : {c}件'  // 标签内容
+            }
+          },
+          //labelLine: {                    // 标签的视觉引导线样式,在 label 位置 设置为'outside'的时候会显示视觉引导线。
+          //  normal: {
+          //    show: true,             // 是否显示视觉引导线。
+          //    length: 15,             // 在 label 位置 设置为'outside'的时候会显示视觉引导线。
+          //    length2: 10,            // 视觉引导项第二段的长度。
+          //    lineStyle: {            // 视觉引导线的样式
+          //      //color: '#000',
+          //      //width: 1
+          //    }
+          //  }
+          //},
+          data: chartData.dataSerie                      // 系列中的数据内容数组。
+        }]
+      };
     }
   }
 
