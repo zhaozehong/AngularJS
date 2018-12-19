@@ -21,215 +21,217 @@ app.controller("MachineController", function ($scope, $location, $routeParams) {
   $scope.name = $routeParams.name;
   $scope.charttype = 'multiline';
   $scope.data = {
-    gauge: [
-      {
-        name: "Temperature",
-        title: {
-          // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-          fontWeight: 'bolder',
-          fontSize: 18,
-          fontStyle: 'italic'
-        },
-        z: 1,
-        min: 0,
-        max: 40,
-        radius: "40%",
-        splitNumber: 8,
-        axisLabel: {
-          backgroundColor: 'auto',
-          borderRadius: 2,
-          color: '#eee',
-          padding: 3,
-          textShadowBlur: 2,
-          textShadowOffsetX: 1,
-          textShadowOffsetY: 1,
-          textShadowColor: '#222'
-        },
-        axisLine: {
-          lineStyle: { width: 10 }
-        },
-        axisTick: {          // 坐标轴小标记
-          length: 15,        // 属性length控制线长
-          lineStyle: {       // 属性lineStyle控制线条样式
-            color: 'auto'
-          }
-        },
-        splitLine: {         // 分隔线
-          length: 20,        // 属性length控制线长
-          lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-            color: 'auto'
-          }
-        },
-        detail: {
-          // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-          formatter: function (value) {
-            return value.toFixed(1)
+    gaugecar: {
+      data: [
+        {
+          name: "Temperature",
+          title: {
+            // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            fontWeight: 'bolder',
+            fontSize: 18,
+            fontStyle: 'italic'
           },
-          fontWeight: 'bolder',
-          borderRadius: 3,
-          backgroundColor: '#444',
-          borderColor: '#aaa',
-          shadowBlur: 5,
-          shadowColor: '#333',
-          shadowOffsetX: 0,
-          shadowOffsetY: 3,
-          borderWidth: 2,
-          textBorderColor: '#000',
-          textBorderWidth: 2,
-          textShadowBlur: 2,
-          textShadowColor: '#fff',
-          textShadowOffsetX: 0,
-          textShadowOffsetY: 0,
-          fontFamily: 'Arial',
-          width: 60,
-          color: '#eee',
-          rich: {}
-        },
-        data: [
-          {
-            name: "℃",
-            value: function () {
-              for (var i = 0; i < pulseData.dataArray.length; i++) {
-                if (pulseData.dataArray[i].name == "Temperature") {
-                  var index = pulseData.dataArray[i].data.length - 1;
-                  return pulseData.dataArray[i].data[index];
-                }
-              }
-            }()
-          }]
-      },
-      {
-        name: "Humidity",
-        title: {
-          offsetCenter: [0, '-15%'],       // x, y，单位px
-        },
-        min: 30,
-        max: 80,
-        center: ["20%", "55%"],
-        radius: "30%",
-        splitNumber: 5,
-        endAngle: 45,
-        axisTick: {          // 坐标轴小标记
-          length: 12,        // 属性length控制线长
-          lineStyle: {       // 属性lineStyle控制线条样式
-            color: 'auto'
-          }
-        },
-        splitLine: {         // 分隔线
-          length: 20,        // 属性length控制线长
-          lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-            color: 'auto'
-          }
-        },
-        pointer: {
-          width: 5
-        },
-        detail: { show: false },
-        data: [
-          {
-            name: "%RH",
-            value: function () {
-              for (var i = 0; i < pulseData.dataArray.length; i++) {
-                if (pulseData.dataArray[i].name == "Humidity") {
-                  var index = pulseData.dataArray[i].data.length - 1;
-                  return pulseData.dataArray[i].data[index];
-                }
-              }
-            }()
-          }]
-      },
-      {
-        name: "Vibration",
-        title: { show: false },
-        min: 0,
-        max: 50,
-        radius: "25%",
-        center: ["77%", "50%"],
-        splitNumber: 2,
-        startAngle: 135,
-        endAngle: 45,
-        axisLabel: {
-          formatter: function (v) {
-            switch (v + '') {
-              case "0": return "0";
-              case "25": return "Virb.";
-              case "50": return "50";
+          z: 1,
+          min: 0,
+          max: 40,
+          radius: "40%",
+          splitNumber: 8,
+          axisLabel: {
+            backgroundColor: 'auto',
+            borderRadius: 2,
+            color: '#eee',
+            padding: 3,
+            textShadowBlur: 2,
+            textShadowOffsetX: 1,
+            textShadowOffsetY: 1,
+            textShadowColor: '#222'
+          },
+          axisLine: {
+            lineStyle: { width: 10 }
+          },
+          axisTick: {          // 坐标轴小标记
+            length: 15,        // 属性length控制线长
+            lineStyle: {       // 属性lineStyle控制线条样式
+              color: 'auto'
             }
-          }
+          },
+          splitLine: {         // 分隔线
+            length: 20,        // 属性length控制线长
+            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+              color: 'auto'
+            }
+          },
+          detail: {
+            // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+            formatter: function (value) {
+              return value.toFixed(1)
+            },
+            fontWeight: 'bolder',
+            borderRadius: 3,
+            backgroundColor: '#444',
+            borderColor: '#aaa',
+            shadowBlur: 5,
+            shadowColor: '#333',
+            shadowOffsetX: 0,
+            shadowOffsetY: 3,
+            borderWidth: 2,
+            textBorderColor: '#000',
+            textBorderWidth: 2,
+            textShadowBlur: 2,
+            textShadowColor: '#fff',
+            textShadowOffsetX: 0,
+            textShadowOffsetY: 0,
+            fontFamily: 'Arial',
+            width: 60,
+            color: '#eee',
+            rich: {}
+          },
+          data: [
+            {
+              name: "℃",
+              value: function () {
+                for (var i = 0; i < pulseData.dataArray.length; i++) {
+                  if (pulseData.dataArray[i].name == "Temperature") {
+                    var index = pulseData.dataArray[i].data.length - 1;
+                    return pulseData.dataArray[i].data[index];
+                  }
+                }
+              }()
+            }]
         },
-        axisTick: {            // 坐标轴小标记
+        {
+          name: "Humidity",
+          title: {
+            offsetCenter: [0, '-15%'],       // x, y，单位px
+          },
+          min: 30,
+          max: 80,
+          center: ["20%", "55%"],
+          radius: "30%",
           splitNumber: 5,
-          length: 10,        // 属性length控制线长
-          lineStyle: {        // 属性lineStyle控制线条样式
-            color: 'auto'
-          }
+          endAngle: 45,
+          axisTick: {          // 坐标轴小标记
+            length: 12,        // 属性length控制线长
+            lineStyle: {       // 属性lineStyle控制线条样式
+              color: 'auto'
+            }
+          },
+          splitLine: {         // 分隔线
+            length: 20,        // 属性length控制线长
+            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+              color: 'auto'
+            }
+          },
+          pointer: {
+            width: 5
+          },
+          detail: { show: false },
+          data: [
+            {
+              name: "%RH",
+              value: function () {
+                for (var i = 0; i < pulseData.dataArray.length; i++) {
+                  if (pulseData.dataArray[i].name == "Humidity") {
+                    var index = pulseData.dataArray[i].data.length - 1;
+                    return pulseData.dataArray[i].data[index];
+                  }
+                }
+              }()
+            }]
         },
-        splitLine: {         // 分隔线
-          length: 15,        // 属性length控制线长
-          lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-            color: 'auto'
-          }
-        },
-        pointer: {
-          width: 2
-        },
-        detail: { show: false },
+        {
+          name: "Vibration",
+          title: { show: false },
+          min: 0,
+          max: 50,
+          radius: "25%",
+          center: ["77%", "50%"],
+          splitNumber: 2,
+          startAngle: 135,
+          endAngle: 45,
+          axisLabel: {
+            formatter: function (v) {
+              switch (v + '') {
+                case "0": return "0";
+                case "25": return "Virb.";
+                case "50": return "50";
+              }
+            }
+          },
+          axisTick: {            // 坐标轴小标记
+            splitNumber: 5,
+            length: 10,        // 属性length控制线长
+            lineStyle: {        // 属性lineStyle控制线条样式
+              color: 'auto'
+            }
+          },
+          splitLine: {         // 分隔线
+            length: 15,        // 属性length控制线长
+            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+              color: 'auto'
+            }
+          },
+          pointer: {
+            width: 2
+          },
+          detail: { show: false },
 
-        data: [
-          {
-            name: "virb.",
+          data: [
+            {
+              name: "virb.",
+              value: function () {
+                for (var i = 0; i < pulseData.dataArray.length; i++) {
+                  if (pulseData.dataArray[i].name == "Vibration") {
+                    var index = pulseData.dataArray[i].data.length - 1;
+                    return pulseData.dataArray[i].data[index];
+                  }
+                }
+              }()
+            }]
+        },
+        {
+          name: "Pressure",
+          title: { show: false },
+          min: 80,
+          max: 120,
+          center: ["77%", "50%"],
+          radius: "25%",
+          splitNumber: 2,
+          startAngle: 315,
+          endAngle: 225,
+          axisLabel: {
+            formatter: function (v) {
+              switch (v + '') {
+                case "80": return "80";
+                case "100": return "atm";
+                case "120": return "120";
+              }
+            }
+          },
+          splitLine: {         // 分隔线
+            length: 15,        // 属性length控制线长
+            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+              color: 'auto'
+            }
+          },
+          pointer: {
+            width: 2
+          },
+          detail: { show: false },
+          data: [{
+            name: "kPa",
             value: function () {
               for (var i = 0; i < pulseData.dataArray.length; i++) {
-                if (pulseData.dataArray[i].name == "Vibration") {
+                if (pulseData.dataArray[i].name == "Pressure") {
                   var index = pulseData.dataArray[i].data.length - 1;
                   return pulseData.dataArray[i].data[index];
                 }
               }
             }()
           }]
-      },
-      {
-        name: "Pressure",
-        title: { show: false },
-        min: 80,
-        max: 120,
-        center: ["77%", "50%"],
-        radius: "25%",
-        splitNumber: 2,
-        startAngle: 315,
-        endAngle: 225,
-        axisLabel: {
-          formatter: function (v) {
-            switch (v + '') {
-              case "80": return "80";
-              case "100": return "atm";
-              case "120": return "120";
-            }
-          }
         },
-        splitLine: {         // 分隔线
-          length: 15,        // 属性length控制线长
-          lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-            color: 'auto'
-          }
-        },
-        pointer: {
-          width: 2
-        },
-        detail: { show: false },
-        data: [{
-          name: "kPa",
-          value: function () {
-            for (var i = 0; i < pulseData.dataArray.length; i++) {
-              if (pulseData.dataArray[i].name == "Pressure") {
-                var index = pulseData.dataArray[i].data.length - 1;
-                return pulseData.dataArray[i].data[index];
-              }
-            }
-          }()
-        }]
-      },
-    ],
+      ]
+    },
     pie: {
       //legend: function () {
       //  let serie = [];
@@ -256,7 +258,8 @@ app.controller("MachineController", function ($scope, $location, $routeParams) {
         }
         return serie;
       }()
-    }
+    },
+    bar3d: {}
   };
   $scope.imageClick = function () {
     $location.path("/image/" + $routeParams.name);

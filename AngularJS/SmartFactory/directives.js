@@ -4,6 +4,7 @@ app.directive('sfchartelement', function ($timeout) {
   return {
     scope: {
       data: "=",
+      datakey: "@",
       charttype: "@",
       interact: "&"
     },
@@ -12,7 +13,7 @@ app.directive('sfchartelement', function ($timeout) {
     replace: true,
     link: function ($scope, element, attrs, controller) {
       $timeout(function () {
-        var option = sfchart.getEChartOption($scope.charttype, $scope.data);
+        var option = sfchart.getEChartOption($scope.charttype, $scope.data, $scope.datakey);
         if (option && typeof option === "object" && element && element.length == 1) {
           //var myChart = echarts.init(document.getElementById($scope.id));
           //var myChart = echarts.init(document.getElementById(attrs["id"]));

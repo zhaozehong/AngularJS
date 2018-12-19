@@ -1,7 +1,13 @@
 ﻿'user strict'
 
 var sfchart = function () {
-  let getEChartOption = function (charttype, data) {
+  let getEChartOption = function (charttype, data, dataKey) {
+    var key = dataKey ? dataKey : charttype;
+    if (!data.hasOwnProperty(key))
+      return;
+
+    var chartData = data[key];
+
     if (charttype == "line") {
       return getLineOption();
     }
@@ -50,8 +56,8 @@ var sfchart = function () {
     else if (charttype == "ring") {
       return getRingOption();
     }
-    else if (charttype == "ring1") {
-      return getRing1Option();
+    else if (charttype == "ringX") {
+      return getRingXOption();
     }
 
 
@@ -109,7 +115,7 @@ var sfchart = function () {
         //  trigger: 'axis'
         //},
         legend: {
-          data: data.multiline.legend
+          data: chartData.legend
         },
         grid: {
           left: '3%',
@@ -120,7 +126,7 @@ var sfchart = function () {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: data.multiline.xAxisData
+          data: chartData.xAxisData
         },
         yAxis: {
           type: "value"
@@ -128,12 +134,12 @@ var sfchart = function () {
 
         series: function () {
           var serie = [];
-          for (var i = 0; i < data.multiline.legend.length; i++) {
+          for (var i = 0; i < chartData.legend.length; i++) {
             var item = {
-              name: data.multiline.legend[i],
+              name: chartData.legend[i],
               type: 'line',
               //stack: "总量",
-              data: data.multiline.data[i]
+              data: chartData.data[i]
             };
             serie.push(item);
           }
@@ -246,7 +252,7 @@ var sfchart = function () {
         //legend: {
         //  orient: 'horizontal',
         //  left: 'left',
-        //  data: data.pie.legend
+        //  data: chartData.legend
         //},
         series: [
           {
@@ -254,7 +260,7 @@ var sfchart = function () {
             type: 'pie',
             radius: '55%',
             center: ['50%', '50%'],
-            data: data.pie.data,
+            data: chartData.data,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -524,31 +530,31 @@ var sfchart = function () {
         },
         series: function () {
           var serie = [];
-          for (var i = 0; i < data.gauge.length; i++) {
+          for (var i = 0; i < chartData.data.length; i++) {
             var item = {
               type: "gauge",
-              name: data.gauge[i].name,
-              min: data.gauge[i].min,
-              max: data.gauge[i].max,
-              splitNumber: data.gauge[i].splitNumber,
-              radius: data.gauge[i].radius,
-              data: data.gauge[i].data,
+              name: chartData.data[i].name,
+              min: chartData.data[i].min,
+              max: chartData.data[i].max,
+              splitNumber: chartData.data[i].splitNumber,
+              radius: chartData.data[i].radius,
+              data: chartData.data[i].data,
               axisLine: {
                 lineStyle: { width: 8 }
               },
               axisTick: { show: false },
             };
-            if (data.gauge[i].z) { item.z = data.gauge[i].z; }
-            if (data.gauge[i].title) { item.title = data.gauge[i].title; }
-            if (data.gauge[i].center) { item.center = data.gauge[i].center; }
-            if (data.gauge[i].startAngle) { item.startAngle = data.gauge[i].startAngle; }
-            if (data.gauge[i].endAngle) { item.endAngle = data.gauge[i].endAngle; }
-            if (data.gauge[i].axisLabel) { item.axisLabel = data.gauge[i].axisLabel; }
-            if (data.gauge[i].axisLine) { item.axisLine = data.gauge[i].axisLine; }
-            if (data.gauge[i].axisTick) { item.axisTick = data.gauge[i].axisTick; }
-            if (data.gauge[i].splitLine) { item.splitLine = data.gauge[i].splitLine; }
-            if (data.gauge[i].pointer) { item.pointer = data.gauge[i].pointer; }
-            if (data.gauge[i].detail) { item.detail = data.gauge[i].detail; }
+            if (chartData.data[i].z) { item.z = chartData.data[i].z; }
+            if (chartData.data[i].title) { item.title = chartData.data[i].title; }
+            if (chartData.data[i].center) { item.center = chartData.data[i].center; }
+            if (chartData.data[i].startAngle) { item.startAngle = chartData.data[i].startAngle; }
+            if (chartData.data[i].endAngle) { item.endAngle = chartData.data[i].endAngle; }
+            if (chartData.data[i].axisLabel) { item.axisLabel = chartData.data[i].axisLabel; }
+            if (chartData.data[i].axisLine) { item.axisLine = chartData.data[i].axisLine; }
+            if (chartData.data[i].axisTick) { item.axisTick = chartData.data[i].axisTick; }
+            if (chartData.data[i].splitLine) { item.splitLine = chartData.data[i].splitLine; }
+            if (chartData.data[i].pointer) { item.pointer = chartData.data[i].pointer; }
+            if (chartData.data[i].detail) { item.detail = chartData.data[i].detail; }
 
             serie.push(item);
           }
@@ -1820,7 +1826,7 @@ var sfchart = function () {
           {
             name: 'tree',
             type: 'tree',
-            data: [data.multitree],
+            data: [chartData],
 
             top: '20%',
             left: '20%',
@@ -1847,7 +1853,7 @@ var sfchart = function () {
               }
             },
 
-           // expandAndCollapse: true,
+            // expandAndCollapse: true,
 
             animationDuration: 550,
             animationDurationUpdate: 750
@@ -2103,7 +2109,7 @@ var sfchart = function () {
       return {
         backgroundColor: '#eee',
         animation: false,
-        legend: data.OHLC.legend,
+        legend: chartData.legend,
         tooltip: {
           trigger: 'axis',
           axisPointer: { type: 'cross' },
@@ -2140,7 +2146,7 @@ var sfchart = function () {
         xAxis: [
           {
             type: 'category',
-            data: data.OHLC.data.categoryData,
+            data: chartData.data.categoryData,
             scale: true,
             boundaryGap: false,
             axisLine: { onZero: false },
@@ -2188,12 +2194,97 @@ var sfchart = function () {
               y: [1, 2, 3, 4],
               tooltip: [1, 2, 3, 4]
             },
-            data: data.OHLC.data.values
+            data: chartData.data.values
           }
         ]
       }
     }
     function getRingOption() {
+      // 圆环图各环节的名称和值(系列中各数据项的名称和值)
+      let handledData = function () {
+        let legendSerie = [];
+        let colorSerie = [];
+        let dataSerie = [];
+
+        let dataPercent = 0;
+        let dataColor = "#3E98C7";
+        if (chartData.data) {
+          let dataName = chartData.data.name;
+          dataPercent = chartData.data.value;
+          dataColor = chartData.data.color;
+
+          legendSerie.push(dataName);
+          colorSerie.push(dataColor);
+          dataSerie.push({ name: dataName, value: dataPercent });
+        }
+        let otherName = "Unfinished";
+        legendSerie.push(otherName);
+        colorSerie.push("#D5D6D7");
+        dataSerie.push({ name: otherName, value: 1 - dataPercent });
+
+        return {
+          legendSerie: legendSerie,
+          colorSerie: colorSerie, // 圆环图各环节的颜色
+          dataSerie: dataSerie,
+          dataColor: dataColor,
+          dataPercent: toPercent(dataPercent)
+        };
+      }();
+
+      function toPercent(value) {
+        if (value == 0) {
+          return 0;
+        }
+        var str = Number(value * 100).toFixed();
+        str += "%";
+        return str;
+      }
+
+      if (chartData.legend) {
+        chartData.legend.data = handledData.legendSerie;
+      }
+      if (chartData.graphic) {
+        var graphic = {
+          type: 'text', // [ default: image ]用 setOption 首次设定图形元素时必须指定。image, text, circle, sector, ring, polygon, polyline, rect, line, bezierCurve, arc, group,
+          top: 'center', // 描述怎么根据父元素进行定位。top 和 bottom 只有一个可以生效。如果指定 top 或 bottom，则 shape 里的 y、cy 等定位属性不再生效。『父元素』是指：如果是顶层元素，父元素是 echarts 图表容器。如果是 group 的子元素，父元素就是 group 元素。
+          left: 'center',
+          style: {
+            text: handledData.dataPercent,
+            fill: handledData.dataColor,
+            fontSize: chartData.graphic.fontSize,
+            fontWeight: chartData.graphic.fontWeight
+          }
+        };
+      }
+
+      // 指定图表的配置项和数据
+      return {
+        title: chartData.title,
+        legend: chartData.legend,
+        tooltip: chartData.tooltip,
+        backgroundColor: chartData.backgroundColor,
+        graphic: graphic,
+
+        // 系列列表
+        series: [{
+          name: '圆环图系列名称',         // 系列名称
+          type: 'pie',                    // 系列类型 
+          center: ['50%', '50%'],           // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。[ default: ['50%', '50%'] ]
+          radius: chartData.radius,         // 饼图的半径，数组的第一项是内半径，第二项是外半径。[ default: [0, '75%'] ]
+          hoverAnimation: false,           // 是否开启 hover 在扇区上的放大动画效果。[ default: true ]
+          color: handledData.colorSerie,                   // 圆环图的颜色
+          label: {                        // 饼图图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等.
+            normal: {
+              show: false,             // 是否显示标签[ default: false ]
+              position: 'outside',    // 标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
+              formatter: '{b} : {c}件'  // 标签内容
+            }
+          },
+          data: handledData.dataSerie                      // 系列中的数据内容数组。
+        }]
+      };
+    }
+    function getRingXOption() {
       // 圆环图各环节的名称和值(系列中各数据项的名称和值)
       var data = [{
         name: '其它',
@@ -2319,94 +2410,7 @@ var sfchart = function () {
         }]
       };
     }
-    function getRing1Option() {
-      // 圆环图各环节的名称和值(系列中各数据项的名称和值)
-      var dataSource = data.ring1;
-      var chartData = function () {
-        var legendSerie = [];
-        var colorSerie = [];
-        var dataSerie = [];
-        var total = 0;
-        for (var i = 0; i < dataSource.data.length; i++) {
-          var name = dataSource.data[i].name;
-          var color = dataSource.data[i].color;
-          var value = dataSource.data[i].value;
-          legendSerie.push(name);
-          colorSerie.push(color);
-          var item = {
-            name: name,
-            value: value
-          }
-          dataSerie.push(item);
-          total += value;
-        }
-        if (total != 0) {
-          percent = dataSource.data[0].value / total;
-        }
 
-        return {
-          legendSerie: legendSerie,
-          colorSerie: colorSerie, // 圆环图各环节的颜色
-          dataSerie: dataSerie,
-          percent: toPercent(percent)
-        };
-      }();
-
-      function toPercent(value) {
-        if (value == 0) {
-          return 0;
-        }
-        var str = Number(value * 100).toFixed();
-        str += "%";
-        return str;
-      }
-
-      if (dataSource.legend) {
-        dataSource.legend.data = chartData.legendSerie;
-      }
-      var graphic = dataSource.graphic;
-      if (graphic) {
-        graphic.style.text = chartData.percent;
-      }
-
-      // 指定图表的配置项和数据
-      return {
-        title: dataSource.title,
-        legend: dataSource.legend,
-        tooltip: dataSource.tooltip,
-        backgroundColor: dataSource.backgroundColor,
-        graphic: graphic,
-
-        // 系列列表
-        series: [{
-          name: '圆环图系列名称',         // 系列名称
-          type: 'pie',                    // 系列类型 
-          center: ['50%', '50%'],           // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。[ default: ['50%', '50%'] ]
-          radius: ['40%', '45%'],         // 饼图的半径，数组的第一项是内半径，第二项是外半径。[ default: [0, '75%'] ]
-          hoverAnimation: false,           // 是否开启 hover 在扇区上的放大动画效果。[ default: true ]
-          color: chartData.colorSerie,                   // 圆环图的颜色
-          label: {                        // 饼图图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等.
-            normal: {
-              show: false,             // 是否显示标签[ default: false ]
-              position: 'outside',    // 标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
-              formatter: '{b} : {c}件'  // 标签内容
-            }
-          },
-          //labelLine: {                    // 标签的视觉引导线样式,在 label 位置 设置为'outside'的时候会显示视觉引导线。
-          //  normal: {
-          //    show: true,             // 是否显示视觉引导线。
-          //    length: 15,             // 在 label 位置 设置为'outside'的时候会显示视觉引导线。
-          //    length2: 10,            // 视觉引导项第二段的长度。
-          //    lineStyle: {            // 视觉引导线的样式
-          //      //color: '#000',
-          //      //width: 1
-          //    }
-          //  }
-          //},
-          data: chartData.dataSerie                      // 系列中的数据内容数组。
-        }]
-      };
-    }
   }
 
   return {

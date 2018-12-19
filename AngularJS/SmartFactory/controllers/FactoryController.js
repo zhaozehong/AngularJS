@@ -27,7 +27,6 @@ app.controller("FactoryController", function ($scope, $timeout, $location, $rout
       ]
     }
   ];
-  var ringColor = "#3E98C7";
 
   $scope.chartInteraction = function (chart, eventParams) {
     if (eventParams.name) {
@@ -55,39 +54,6 @@ app.controller("FactoryController", function ($scope, $timeout, $location, $rout
       name: $routeParams.name + " Factory",
       children: departmentData
     },
-    ring1: {
-      legend: {
-        selectedMode: true, // 图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 false 关闭。
-        top: '10%',
-        left: 'center',
-        textStyle: { // 图例的公用文本样式。
-          fontSize: 14,
-          color: '#000'
-        },
-        data: ['其它', '休闲裤', '女士衬衫', '运动服']
-      },
-      // graphic 是原生图形元素组件。可以支持的图形元素包括：image, text, circle, sector, ring, polygon, polyline, rect, line, bezierCurve, arc, group,
-      graphic: {
-        type: 'text', // [ default: image ]用 setOption 首次设定图形元素时必须指定。image, text, circle, sector, ring, polygon, polyline, rect, line, bezierCurve, arc, group,
-        top: 'center', // 描述怎么根据父元素进行定位。top 和 bottom 只有一个可以生效。如果指定 top 或 bottom，则 shape 里的 y、cy 等定位属性不再生效。『父元素』是指：如果是顶层元素，父元素是 echarts 图表容器。如果是 group 的子元素，父元素就是 group 元素。
-        left: 'center', // 同上
-        style: {
-          text: '', // 文本块文字。可以使用 \n 来换行。[ default: '' ]
-          fill: ringColor,  // 填充色。
-          fontSize: 50, // 字体大小
-          fontWeight: 'bold' // 文字字体的粗细，可选'normal'，'bold'，'bolder'，'lighter'
-        }
-      },
-      data: [{
-        name: "finished",
-        value: 0.2,
-        color: ringColor
-      }, {
-        name: "left",
-        value: 0.8,
-        color: "#D5D6D7"
-      }]
-    }
   };
   
 });
