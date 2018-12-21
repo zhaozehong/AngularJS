@@ -5,6 +5,28 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularJS", "AngularJS\AngularJS.csproj", "{1BB9431B-45CC-47BB-B38C-FFFF9C69C2AD}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "BookLogger", "BookLogger\", "{7767955A-8B8B-4B87-84AC-13C7391F8780}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_6097"
+		Debug.AspNetCompiler.PhysicalPath = "BookLogger\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_6097\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_6097"
+		Release.AspNetCompiler.PhysicalPath = "BookLogger\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_6097\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "6097"
+		SlnRelativePath = "BookLogger\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +37,10 @@ Global
 		{1BB9431B-45CC-47BB-B38C-FFFF9C69C2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BB9431B-45CC-47BB-B38C-FFFF9C69C2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BB9431B-45CC-47BB-B38C-FFFF9C69C2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7767955A-8B8B-4B87-84AC-13C7391F8780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7767955A-8B8B-4B87-84AC-13C7391F8780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7767955A-8B8B-4B87-84AC-13C7391F8780}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7767955A-8B8B-4B87-84AC-13C7391F8780}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
