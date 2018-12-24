@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module("app", []);
+var app = angular.module("app", ["ngRoute"]);
 
 
 // way 2
@@ -28,8 +28,22 @@ app.factory("books1", function () {
   var a = 10;
   return { a: a };
 });
-app.config(function (booksProvider) {
+app.config(function ($locationProvider, booksProvider, $routeProvider) {
   booksProvider.setIncludeVersionInTitle(true);
+  //$locationProvider.hashPrefix(""); // zehong: 奇怪，不加这一行，会默认有个!在#后面，以前没有的。所以所有改变页面的地方都要写“#!/view”
+
+  $routeProvider
+    .when("/main", {
+      templateUrl: "app/templates/books.html",
+      controller: "BooksController",
+      controllerAs: "books"
+    })
+    .when("/AddBook", {
+      templateUrl: "app/templates/addBook.html",
+      controller: "AddBookController",
+      controllerAs: "addBook"
+    })
+    .otherwise({ redirectTo: "/main" });
 });
 
 // way 1

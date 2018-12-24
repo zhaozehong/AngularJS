@@ -1,13 +1,13 @@
 ﻿"use strict"
 
-app.factory("dataService", function () {
+app.factory("dataService", ["$q", "$timeout", function ($q, $timeout) {
   return {
     getAllBooks: getAllBooks,
     getAllReaders: getAllReaders
   };
 
   function getAllBooks() {
-    return [
+    var booksArray = [
       {
         book_id: 1,
         title: "Harry Potter and the Deathly Hallows",
@@ -27,9 +27,22 @@ app.factory("dataService", function () {
         year_published: 1963
       }
     ];
+
+    var defered = $q.defer();
+    $timeout(function () {
+      var successful = true;
+      if (successful) {
+        defered.notify("Just getting started gathering books...");
+        defered.notify("Almost done gathering books...");
+        defered.resolve(booksArray);
+      } else {
+        defered.reject("Error retriveving book.");
+      }
+    }, 1000);
+    return defered.promise;
   }
   function getAllReaders() {
-    return [
+    var readersArray = [
       {
         reader_id: 1,
         name: "Marie",
@@ -49,5 +62,11 @@ app.factory("dataService", function () {
         totalMinutesRead: 600
       }
     ];
+
+    var defered = $q.defer();
+    $timeout(function () {
+      defered.resolve(readersArray);
+    }, 1500);
+    return defered.promise;
   }
-});
+}]);
