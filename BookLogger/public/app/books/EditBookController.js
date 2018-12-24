@@ -1,12 +1,9 @@
 ﻿"use strict"
 
-app.controller("EditBookController", ["$routeParams", "dataService", EditBookController]);
-function EditBookController($routeParams, dataService) {
+app.controller("EditBookController", ["$routeParams", "dataService", "books", EditBookController]);
+function EditBookController($routeParams, books) {
   var vm = this;
-  dataService.getAllBooks()
-    .then(function (books) {
-      vm.currentBook = books.filter(function (item) {
-        return item.book_id == $routeParams.bookID;
-      })[0];
-    });
+  vm.currentBook = books.filter(function (item) {
+    return item.book_id == $routeParams.bookID;
+  })[0];
 }
