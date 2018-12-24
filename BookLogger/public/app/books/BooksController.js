@@ -1,10 +1,7 @@
 ﻿'use strict';
 
-app.controller("BooksController",
-  function ($scope, books, books1, dataService, logger, badgeService, $q) {
-    $scope.appName = books.appName;
-    $scope.a = books1.a;
-
+app.controller("BooksController", ["books", "dataService", "logger", "badgeService", "$q", "$cookies", "$log",
+  function (books, dataService, logger, badgeService, $q, $cookies, $log) {
     var vm = this;
     vm.appName = books.appName;
 
@@ -17,8 +14,6 @@ app.controller("BooksController",
     function getAllDataSuccess(dataArray) {
       vm.allBooks = dataArray[0];
       vm.allReaders = dataArray[1];
-      $scope.allBooks = dataArray[0];
-      $scope.allReaders = dataArray[1];
     }
     function getAllDataError(reason) {
       console.log(reason);
@@ -32,7 +27,6 @@ app.controller("BooksController",
     //function getBooksSuccess(response) {
     //  //throw "an error occur in success handler";
     //  vm.allBooks = response;
-    //  $scope.allBooks = response;
     //}
     //function getBooksError(reason) {
     //  console.log(reason);
@@ -50,7 +44,6 @@ app.controller("BooksController",
     //  .finally(getAllReadersComplete);
     //function getReadersSuccess(response) {
     //  vm.allReaders = response;
-    //  $scope.allReaders = response;
     //}
     //function getAllReadersComplete() {
     //  console.log("getAllReaders has completed");
@@ -61,6 +54,14 @@ app.controller("BooksController",
     //}
 
     vm.getBadge = badgeService.retriveBadge;
+    vm.favoriteBook = $cookies.favoriteBook;
+    vm.lastEdited = $cookies.getObject("lastEdited");
+
 
     logger.output("BooksController has been created.");
-  });
+    $log.log("logging with log");
+    $log.info("logging with info");
+    $log.warn("logging with warn");
+    $log.error("logging with error");
+    $log.debug("logging with debug");
+  }]);
