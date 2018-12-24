@@ -30,10 +30,10 @@ app.factory("books1", function () {
 });
 app.config(function ($locationProvider, booksProvider, $routeProvider) {
   booksProvider.setIncludeVersionInTitle(true);
-  //$locationProvider.hashPrefix(""); // zehong: 奇怪，不加这一行，会默认有个!在#后面，以前没有的。所以所有改变页面的地方都要写“#!/view”
+  $locationProvider.hashPrefix(""); // zehong: 奇怪，不加这一行，会默认有个!在#后面，以前没有的。所以所有改变页面的地方都要写“#!/view”
 
   $routeProvider
-    .when("/main", {
+    .when("/", {
       templateUrl: "app/templates/books.html",
       controller: "BooksController",
       controllerAs: "books"
@@ -43,7 +43,13 @@ app.config(function ($locationProvider, booksProvider, $routeProvider) {
       controller: "AddBookController",
       controllerAs: "addBook"
     })
-    .otherwise({ redirectTo: "/main" });
+    .when("/EditBook/:bookID", {
+      templateUrl: "app/templates/editBook.html",
+      controller: "EditBookController",
+      controllerAs: "bookEditor"
+    })
+    //.otherwise({ redirectTo: "/" });
+    .otherwise("/"); // you must pass in a object as show in above line before v1.3
 });
 
 // way 1
