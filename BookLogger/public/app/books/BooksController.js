@@ -6,52 +6,52 @@ app.controller("BooksController", ["books", "dataService", "logger", "badgeServi
     vm.appName = books.appName;
 
     // way 2
-    var booksPromise = dataService.getAllBooks();
-    var readersPromise = dataService.getAllReaders();
-    $q.all([booksPromise, readersPromise])
-      .then(getAllDataSuccess)
-      .catch(getAllDataError);
-    function getAllDataSuccess(dataArray) {
-      vm.allBooks = dataArray[0];
-      vm.allReaders = dataArray[1];
-    }
-    function getAllDataError(reason) {
-      console.log(reason);
-    }
-
-    // way 1
-    //dataService.getAllBooks()
-    //  .then(getBooksSuccess, getBooksError, getBooksNotification)
-    //  .catch(errorCallback)
-    //  .finally(getAllBooksComplete);
-    //function getBooksSuccess(response) {
-    //  //throw "an error occur in success handler";
-    //  vm.allBooks = response;
+    //var booksPromise = dataService.getAllBooks();
+    //var readersPromise = dataService.getAllReaders();
+    //$q.all([booksPromise, readersPromise])
+    //  .then(getAllDataSuccess)
+    //  .catch(getAllDataError);
+    //function getAllDataSuccess(dataArray) {
+    //  vm.allBooks = dataArray[0];
+    //  vm.allReaders = dataArray[1];
     //}
-    //function getBooksError(reason) {
+    //function getAllDataError(reason) {
     //  console.log(reason);
     //}
-    //function getBooksNotification(notification) {
-    //  console.log("Promise Notification: " + notification);
-    //}
-    //function getAllBooksComplete() {
-    //  console.log("getAllBooks has completed");
-    //}
 
-    //dataService.getAllReaders()
-    //  .then(getReadersSuccess)
-    //  .catch(errorCallback)
-    //  .finally(getAllReadersComplete);
-    //function getReadersSuccess(response) {
-    //  vm.allReaders = response;
-    //}
-    //function getAllReadersComplete() {
-    //  console.log("getAllReaders has completed");
-    //}
+    // way 1
+    dataService.getAllBooks()
+      .then(getBooksSuccess, getBooksError, getBooksNotification)
+      .catch(errorCallback)
+      .finally(getAllBooksComplete);
+    function getBooksSuccess(response) {
+      //throw "an error occur in success handler";
+      vm.allBooks = response;
+    }
+    function getBooksError(reason) {
+      console.log(reason);
+    }
+    function getBooksNotification(notification) {
+      console.log("Promise Notification: " + notification);
+    }
+    function getAllBooksComplete() {
+      console.log("getAllBooks has completed");
+    }
 
-    //function errorCallback(errorMsg) {
-    //  console.log("Error Message: " + errorMsg);
-    //}
+    dataService.getAllReaders()
+      .then(getReadersSuccess)
+      .catch(errorCallback)
+      .finally(getAllReadersComplete);
+    function getReadersSuccess(response) {
+      vm.allReaders = response;
+    }
+    function getAllReadersComplete() {
+      console.log("getAllReaders has completed");
+    }
+
+    function errorCallback(errorMsg) {
+      console.log("Error Message: " + errorMsg);
+    }
 
     vm.getBadge = badgeService.retriveBadge;
     vm.favoriteBook = $cookies.favoriteBook;
