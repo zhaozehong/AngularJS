@@ -1,14 +1,12 @@
-﻿var f = require('./function');
+﻿var select = require('./select');
 var pg = require('pg');
+
+//var conString = "postgres://username:password@localhost:portNumber/databasename";
 // 连接字符串=“tcp:// 用户名 : 密码 @localhost:5432/ 库名”;
-var conString = 'tcp://postgres:123456@localhost:5432/node';
+var conString = 'postgres://postgres:123456@localhost:5432/node';
 var client = new pg.Client(conString);
 
-var value = ['10', 'fillp', 'abc'];
-var insertSQLString = 'insert into teacher values($1,$2,$3)';
 var selectSQLString = 'select * from teacher';
-var updateSQLString = "update teacher set NAME='ipone' where ID='4'";
-var deleteSQLString = "delete from teacher where ID='10'";
 
 client.connect(function (error, results) {
   if (error) {
@@ -16,12 +14,19 @@ client.connect(function (error, results) {
     client.end();
     return;
   }
-  console.log('Connecting to postgres...');
-  console.log('Connected to postgres automatically.');
   console.log('connection success...\n');
 
-  f._select(client, selectSQLString);
-  f._insert(client, insertSQLString, value);
-  f._select(client, selectSQLString);
-  f._delete(client, deleteSQLString);
+  var content = select.select(client, selectSQLString, function (result) {
+    console.log(result);
+
+    // here is the right place to close the connection
+    client.end();
+    console.log('Connection closed.\n');
+  });
+
+  console.log(content);
+
+  // the following two code is not accceptable, since the select query will never be executed
+  /*client.end();
+  console.log('Connection closed.\n');*/
 });
