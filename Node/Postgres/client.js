@@ -2,7 +2,7 @@
 var pg = require('pg');
 
 //var conString = "postgres://username:password@localhost:portNumber/databasename";
-// 连接字符串=“tcp:// 用户名 : 密码 @localhost:5432/ 库名”;
+// 连接字符串=“tcp://用户名:密码@localhost:5432/库名”;
 var conString = 'postgres://postgres:123456@localhost:5432/node';
 var client = new pg.Client(conString);
 
