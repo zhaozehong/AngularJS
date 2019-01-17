@@ -19,7 +19,6 @@ app.controller("MachineController", function ($scope, $location, $routeParams) {
   ];
 
   $scope.name = $routeParams.name;
-  $scope.charttype = 'multiline';
   $scope.data = {
     gaugecar: {
       data: [

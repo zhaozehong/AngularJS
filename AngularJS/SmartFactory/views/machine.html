@@ -1,21 +1,21 @@
-﻿<div>
+﻿<div class="viewContainer">
   <h3>{{name}}</h3>
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row chartContainer1">
+    <div class="col-md-4 chartContainer">
       <img ng-src="SmartFactory/img/Generic.png" alt="Here is a picture" class="largeImg" ng-click="imageClick()" />
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 chartContainer">
       <sfchartelement data="data" charttype="{{charttype}}"></sfchartelement>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row chartContainer1">
+    <div class="col-md-4 chartContainer">
       <sfchartelement data="data" charttype="gaugecar"></sfchartelement>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 chartContainer">
       <sfchartelement data="data" charttype="pie"></sfchartelement>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 chartContainer">
       <sfchartelement data="data" charttype="bar3d"></sfchartelement>
     </div>
   </div>

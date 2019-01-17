@@ -59,15 +59,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\css\bootstrap.css" />
-    <Content Include="app\css\style.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\style.css" />
     <Content Include="app\img\angularjs-logo.png" />
     <Content Include="app\js\controllers\ATESTController.js" />
     <Content Include="app\js\controllers\menuController.js" />
     <Content Include="app\js\controllers\SFChartController.js" />
     <Content Include="app\js\controllers\User1Controller.js" />
-    <Content Include="app\js\directives.js" />
     <Content Include="app\js\app.js" />
+    <Content Include="QdasDemo.html" />
+    <Content Include="QDAS\app.js" />
+    <Content Include="QDAS\controllers\MainController.js" />
+    <Content Include="QDAS\qdasHelper.js" />
+    <Content Include="QDAS\views\main.html" />
     <Content Include="SmartFactory\controllers\ImageController.js" />
     <Content Include="SmartFactory\directives.js" />
     <Content Include="SmartFactory\services\dataservices.js" />
@@ -170,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\js\lib\" />
+    <Folder Include="QDAS\services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

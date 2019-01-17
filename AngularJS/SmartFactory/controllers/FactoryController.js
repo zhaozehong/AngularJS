@@ -28,14 +28,6 @@ app.controller("FactoryController", function ($scope, $timeout, $location, $rout
     }
   ];
 
-  $scope.chartInteraction = function (chart, eventParams) {
-    if (eventParams.name) {
-      $timeout(function () {
-        $location.path("/machine/" + eventParams.name);
-      }, 1);
-    }
-  }
-  $scope.charttype = 'pie';
   $scope.name = $routeParams.name;
   $scope.data = {
     pie: {
@@ -55,5 +47,12 @@ app.controller("FactoryController", function ($scope, $timeout, $location, $rout
       children: departmentData
     },
   };
-  
+
+  $scope.chartInteraction = function (eventParams) {
+    if (eventParams.name) {
+      $timeout(function () {
+        $location.path("/machine/" + eventParams.name);
+      }, 1);
+    }
+  }
 });

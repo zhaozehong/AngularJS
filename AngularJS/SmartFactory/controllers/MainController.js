@@ -1,7 +1,8 @@
 ﻿'use strict';
 
 app.controller("MainController", function ($scope, $timeout, $location) {
-  $scope.charttype = 'map2d';
+  $scope.chart2D;
+  $scope.chart3D;
   $scope.data = {
     map2d: {},
     map3d: {},
@@ -60,7 +61,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
       }
     }
   };
-  $scope.chartInteraction = function (chart, eventParams) {
+  $scope.chartInteraction = function (eventParams) {
     if (eventParams.name) {
       $timeout(function () {
         //$location.path("/factory/" + eventParams.name);

@@ -1,0 +1,70 @@
+﻿[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+#nav {
+  background-color: #85d989;
+  width: 100%;
+  height: 100px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+#content {
+  background-color: #cc85d9;
+  width: 100%;
+  position: absolute;
+  top: 100px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.viewContainer {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.chartContainer {
+  height: 100%;
+}
+.chartContainer1 {
+  height: 50%;
+}
+
+
+
+.littleImg {
+  width: 100px;
+  height: 100px;
+}
+
+.largeImg {
+  width: 90%;
+  height: 90%;
+}
+
+.div-pie-container {
+  width: 50%;
+}
+
+.div-pie {
+  padding: 5px;
+  margin: 5px;
+}
+
+h1,
+p {
+  font-family: sans-serif;
+}

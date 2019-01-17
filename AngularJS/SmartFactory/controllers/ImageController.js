@@ -10,7 +10,6 @@ app.controller("ImageController", function ($scope, $http, $routeParams, data) {
   }
 
   $scope.name = $routeParams.name;
-  $scope.charttype = '';
   $scope.data = {
     candlestick: {},
     OHLC: {

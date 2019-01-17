@@ -1,12 +1,9 @@
-﻿<div>
+﻿<div class="viewContainer">
   <h3>{{name}}</h3>
-  <div class="col-md-6">
+  <div class="col-md-6 chartContainer">
     <sfchartelement data="data" charttype="pie"></sfchartelement>
   </div>
-  <div class="col-md-6">
-    <sfchartelement data="data" charttype="multitree" interact="chartInteraction(chart, params)"></sfchartelement>
+  <div class="col-md-6 chartContainer">
+    <sfchartelement data="data" charttype="multitree" interact="chartInteraction(params)"></sfchartelement>
   </div>
 </div>
-
-
-<sfchartelement charttype="multitree" data="data" dataKey="" interact="chartInteraction(chart, params)"/>

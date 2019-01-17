@@ -60,6 +60,10 @@ var sfchart = function () {
       return getRingXOption();
     }
 
+    else if (charttype == "qdasIndValueChart") {
+      return getQdasIndValueChartOption();
+    }
+
 
     function getLineOption() {
       var legend = ["PH值", "溶解氧", "电导率", "温度值", "浊度值"];
@@ -2411,6 +2415,129 @@ var sfchart = function () {
       };
     }
 
+    function getQdasIndValueChartOption() {
+      let xAxis = {
+        type: 'category',
+        nameLocation: 'middle', // x location
+        nameGap: 30, // y location
+        name: chartData.xAxisData.title,
+        data: chartData.xAxisData.labels
+      };
+
+      let yAxis = {
+        type: 'value',
+        nameLocation: 'middle',
+        nameGap: 30,
+        name: chartData.yAxisData.title
+      };
+
+      let series = [];
+      for (let i = 0; i < chartData.seriesData.length; i++) {
+        let serieData = chartData.seriesData[i];
+        let data = [];
+        let markPoints = [];
+
+        // special marker points
+        if (serieData.markPointsData) {
+          for (let k = 0; k < serieData.markPointsData.length; k++) {
+            let markPointData = serieData.markPointsData[k];
+            let markPoint = { type: markPointData.type };
+            if (markPointData.symbol)
+              markPoint.symbol = markPointData.symbol;
+            if (markPointData.symbolSize)
+              markPoint.symbolSize = markPointData.symbolSize;
+            if (markPointData.rotate)
+              markPoint.symbolRotate = markPointData.rotate;
+            if (markPointData.color)
+              markPoint.itemStyle = { color: markPointData.color };
+
+            markPoints.push(markPoint);
+          }
+        }
+        // get data & marker points
+        for (let k = 0; k < serieData.pointsData.length; k++) {
+          let pointData = serieData.pointsData[k];
+          data.push(pointData.value);
+
+          if (pointData.marker) {
+            let markPoint = { coord: [k, pointData.value] };
+            if (pointData.marker.name)
+              markPoint.name = pointData.marker.name;
+            if (pointData.marker.symbol)
+              markPoint.symbol = pointData.marker.symbol;
+            if (pointData.marker.symbolSize)
+              markPoint.symbolSize = pointData.marker.symbolSize;
+            if (pointData.marker.rotate)
+              markPoint.symbolRotate = pointData.marker.rotate;
+            if (pointData.marker.color)
+              markPoint.itemStyle = { color: pointData.marker.color };
+
+            markPoints.push(markPoint);
+          }
+        }
+
+        let markLine = {};
+        if (serieData.markLineData) {
+          var lineDataArray = [];
+          if (serieData.markLineData.xAxisLinesData) {
+            for (let k = 0; k < serieData.markLineData.xAxisLinesData.length; k++) {
+              let xAxisLineData = serieData.markLineData.xAxisLinesData[k];
+              let lineData = {
+                name: xAxisLineData.name,
+                xAxis: xAxisLineData.axisValue,
+              };
+              if (xAxisLineData.lineStyle) {
+                lineData.lineStyle = {
+                  type: xAxisLineData.lineStyle.type,
+                  color: xAxisLineData.lineStyle.color
+                }
+              }
+              lineDataArray.push(lineData);
+            }
+          }
+          if (serieData.markLineData.yAxisLinesData) {
+            for (let k = 0; k < serieData.markLineData.yAxisLinesData.length; k++) {
+              let yAxisLineData = serieData.markLineData.yAxisLineData[k];
+              let lineData = {
+                name: yAxisLineData.name,
+                yAxis: yAxisLineData.axisValue,
+              };
+              if (yAxisLineData.lineStyle) {
+                lineData.lineStyle = {
+                  type: yAxisLineData.lineStyle.type,
+                  color: yAxisLineData.lineStyle.color
+                }
+              }
+              lineDataArray.push(lineData);
+            }
+          }
+
+          markLine.silent = !serieData.markLineData.enableHit;
+          markLine.symbol = serieData.markLineData.symbol;
+          markLine.label = { formatter: '{b}' };
+          markLine.data = lineDataArray;
+        }
+
+        // push a line to series object
+        series.push({
+          type: 'line',
+          symbol: 'circle',
+          color: serieData.color,
+          symbolSize: serieData.symbolSize,
+          lineStyle: { width: serieData.width },
+
+          data: data,
+          markPoint: { data: markPoints },
+          markLine: markLine
+        });
+      };
+
+      return {
+        xAxis: xAxis,
+        yAxis: yAxis,
+        series: series
+      };
+    }
   }
 
   return {

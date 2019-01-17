@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html ng-app="projectModule">
 <head>
-  <link rel="stylesheet" href="app/css/bootstrap.css">
-  <link rel="stylesheet" href="app/css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
   <script src="Scripts/angular.js"></script>
   <script src="Scripts/angular-route.js"></script>
   <script src="Scripts/echarts.js"></script>
@@ -20,7 +20,7 @@
   <script src="app/js/services/github.js"></script>
 </head>
 <body>
-  <div>
+  <div id="nav">
     <h1>Github Viewer</h1>
     <div class="menu" ng-controller="menuController" style="background-color: burlywood">
       <ul id="menuList">
@@ -32,6 +32,6 @@
       </ul>
     </div>
   </div>
-  <div ng-view></div>
+  <div id="content" ng-view></div>
 </body>
 </html>

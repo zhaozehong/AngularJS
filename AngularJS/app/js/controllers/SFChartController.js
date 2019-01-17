@@ -7,6 +7,7 @@ app.directive('sfchartelement', function () {
   return {
     scope: {
       id: "@",
+      charttype: '=',
       legend: "=legend11",
       item: "=item11",
       data: "=data11",

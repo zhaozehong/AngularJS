@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<html ng-app="sfModule" style="height: 100%">
+<html ng-app="sfModule">
 <head>
-  <link rel="stylesheet" href="app/css/bootstrap.css">
-  <link rel="stylesheet" href="app/css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
 
   <script src="Scripts/angular.js"></script>
   <script src="Scripts/angular-route.js"></script>
@@ -19,8 +19,10 @@
   <script src="SmartFactory/controllers/ImageController.js"></script>
   <script src="SmartFactory/services/dataservices.js"></script>
 </head>
-<body style="height: 90%; margin: 0">
-  <h1>Smart Factory Chart</h1>
-  <div ng-view style="height: 77%"></div>
+<body>
+  <div id="nav">
+    <h1>Smart Factory Chart</h1>
+  </div>
+  <div id="content" ng-view></div>
 </body>
 </html>
