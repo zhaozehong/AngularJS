@@ -4,16 +4,20 @@ app.controller("MainController", function ($scope, $timeout, $location) {
   $scope.displayMode = "Successive";
   $scope.showSymbols = true;
   $scope.showRemovedValues = "On";
+  $scope.subgroupSize = 3;
   $scope.apply = function () {
     if (!$scope.chart)
       return;
 
-    let option = getOption();
-    $scope.chart.setOption(option, false);
+    $scope.chart.clear();
+    $scope.chart.setOption(sfchart.getEChartOption("qdasIndValueChart", getUpdatedData()), false);
   };
   $scope.data = {
     line: {},
     qdasIndValueChart: {
+      highlightedColor: 'blue',
+      weightWidth: 2,
+
       xAxisData: {
         title: 'Value No. ->',
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -43,8 +47,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
               marker: {
                 symbolSize: qdasHelper.markerPointBigSize,
               }
-            }
-            , {
+            }, {
               value: 10,
             }, {
               value: 0,
@@ -117,63 +120,41 @@ app.controller("MainController", function ($scope, $timeout, $location) {
     }
   };
 
-  Array.prototype.getIndexes = function (obj) {
-    var returnArray = [];
-    for (var i = 0; i < this.length; i += 1) {
-      if (this[i] === obj) {
-        returnArray.push(i);
-      }
-    }
-    return returnArray;
-  }
+  function getUpdatedData() {
+    var data = Helper.deepClone($scope.data);
 
-  function getOption() {
-    if (!$scope.chart)
-      return;
-
-    var option = $scope.chart.getOption();
     // handle displayMode
     switch ($scope.displayMode) {
       case "LineOff":
-        option.series[0].lineStyle.width = 0;
+        data.qdasIndValueChart.seriesData.forEach(v => v.width = 0);
         break;
       case "Subgroups":
+        subgroups(false, false, false);
         break;
       case "Highlighted":
+        subgroups(true, false, true);
         break;
       case "highlightedInColor":
+        subgroups(false, true, false);
         break;
       case "Deviation":
         break;
       default: // "Successive"
-        option.series[0].lineStyle.width = 1;
+      // do nothing
     }
     // handle showSymbols
-    if ($scope.showSymbols) {
-      option.series[0].markPoint.data = [
-        {
-          name: 'max',
-          type: 'max',
-          symbol: 'arrow',
-          symbolSize: qdasHelper.markerPointSize,
-          symbolRotate: 0,
-          itemStyle: {
-            color: 'red'
-          }
-        },
-        {
-          name: 'min',
-          type: 'min',
-          symbol: 'arrow',
-          symbolSize: qdasHelper.markerPointSize,
-          symbolRotate: 180,
-          itemStyle: {
-            color: 'red'
+    if (!$scope.showSymbols) {
+      for (let i = 0; i < data.qdasIndValueChart.seriesData.length; i++) {
+        let serieData = data.qdasIndValueChart.seriesData[i];
+        if (serieData) {
+          delete serieData.markPointsData;
+          for (let j = 0; j < serieData.pointsData.length; j++) {
+            let pointData = serieData.pointsData[j];
+            if (pointData.marker)
+              delete pointData.marker;
           }
         }
-      ];
-    } else {
-      option.series[0].markPoint.data = [];
+      }
     }
 
     // handle showRemovedValues
@@ -185,6 +166,44 @@ app.controller("MainController", function ($scope, $timeout, $location) {
       default: // "On"
     }
 
-    return option;
+    return data;
+
+    function subgroups(isSubgroupConnected, showDifferentColor, showWeightWidth) {
+      data.qdasIndValueChart.seriesData.push(Helper.deepClone(data.qdasIndValueChart.seriesData[0]));
+      if (isSubgroupConnected) {
+        data.qdasIndValueChart.seriesData.push(Helper.deepClone(data.qdasIndValueChart.seriesData[0]));
+      }
+
+      var serie1 = data.qdasIndValueChart.seriesData[0];
+      var serie2 = data.qdasIndValueChart.seriesData[1];
+      var serie3 = data.qdasIndValueChart.seriesData[2];
+      if (serie3) {
+        serie3.width = 1;
+      }
+      if (showDifferentColor) {
+        serie2.color = data.qdasIndValueChart.highlightedColor;
+      }
+      if (showWeightWidth) {
+        serie1.width = data.qdasIndValueChart.weightWidth;
+        serie2.width = data.qdasIndValueChart.weightWidth;
+      }
+
+      let pointsCount = serie1.pointsData.length;
+      for (let i = 0; i < pointsCount; i += $scope.subgroupSize) {
+        for (let j = 0; j < $scope.subgroupSize; j++) {
+          if (i + j >= pointsCount)
+            break;
+
+          if (i % 2 == 0) {
+            serie2.pointsData[i + j] = null;
+          } else {
+            serie1.pointsData[i + j] = null;
+          }
+          if (serie3 && j != 0 && j != $scope.subgroupSize - 1) {
+            serie3.pointsData[i + j] = null;
+          }
+        }
+      }
+    }
   }
 });

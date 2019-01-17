@@ -2457,8 +2457,12 @@ var sfchart = function () {
         // get data & marker points
         for (let k = 0; k < serieData.pointsData.length; k++) {
           let pointData = serieData.pointsData[k];
-          data.push(pointData.value);
+          if (!pointData) {
+            data.push(null);
+            continue;
+          }
 
+          data.push(pointData.value);
           if (pointData.marker) {
             let markPoint = { coord: [k, pointData.value] };
             if (pointData.marker.name)
