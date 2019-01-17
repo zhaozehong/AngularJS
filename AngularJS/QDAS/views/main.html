@@ -1,0 +1,44 @@
+﻿<div class="viewContainer">
+  <div class="col-md-3">
+    <!--Display of values-->
+    <fieldset class="row">
+      <legend><strong>Display of values</strong></legend>
+      <ul>
+        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Successive" />Connecting lines on</li>
+        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Subgroups" />Connecting lines in subgroups</li>
+        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Highlighted" />Highlighted subgroups</li>
+        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="highlightedInColor" />Subgroups highlighted in color</li>
+        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Deviation" />Deviation from tolerance center</li>
+        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="LineOff" />Connection lines off</li>
+      </ul>
+    </fieldset>
+    <span style="color:blue; font-weight:700">Current Value: </span>{{displayMode}}
+
+    <!--Value symbol on/off-->
+    <fieldset class="row">
+      <legend><strong>Value symbol on/off</strong></legend>
+      <ul>
+        <li><input type="radio" name="ShowSymbols" style="margin-right:4px" ng-model="showSymbols" ng-value="true" />Symbols on</li>
+        <li><input type="radio" name="ShowSymbols" style="margin-right:4px" ng-model="showSymbols" ng-value="false" />Symbols off</li>
+      </ul>
+    </fieldset>
+    <span style="color:blue; font-weight:700">Current Value: </span>{{showSymbols}}
+
+    <!--Show/hide removed values-->
+    <fieldset class="row">
+      <legend><strong>Show/hide removed values</strong></legend>
+      <ul>
+        <li><input type="radio" name="ShowRemovedValues" style="margin-right:4px" ng-model="showRemovedValues" value="On" />Invalid valus on</li>
+        <li><input type="radio" name="ShowRemovedValues" style="margin-right:4px" ng-model="showRemovedValues" value="OffWithBridging" />Invalid valus off(include bridging)</li>
+        <li><input type="radio" name="ShowRemovedValues" style="margin-right:4px" ng-model="showRemovedValues" value="OffWithoutBridging" />Invalid valus off(without bridging)</li>
+      </ul>
+    </fieldset>
+    <span style="color:blue; font-weight:700">Current Value: </span>{{showRemovedValues}}
+    
+    <br />
+    <button ng-click="apply()" style="float:right">Apply</button>
+  </div>
+  <div class="col-md-9 chartContainer">
+    <sfchartelement data="data" charttype="qdasIndValueChart" chart="chart"></sfchartelement>
+  </div>
+</div>

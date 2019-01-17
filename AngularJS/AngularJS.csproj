@@ -67,6 +67,7 @@
     <Content Include="app\js\controllers\SFChartController.js" />
     <Content Include="app\js\controllers\User1Controller.js" />
     <Content Include="app\js\app.js" />
+    <Content Include="lib\Helper.js" />
     <Content Include="QdasDemo.html" />
     <Content Include="QDAS\app.js" />
     <Content Include="QDAS\controllers\MainController.js" />
