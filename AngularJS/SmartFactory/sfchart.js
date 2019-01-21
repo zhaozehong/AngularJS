@@ -2416,20 +2416,34 @@ var sfchart = function () {
     }
 
     function getQdasIndValueChartOption() {
+      let textStyle = createTextStyle(chartData.textStyle);
+
       let xAxis = {
         type: 'category',
+        show: false,
         nameLocation: 'middle', // x location
-        nameGap: 30, // y location
-        name: chartData.xAxisData.title,
-        data: chartData.xAxisData.labels
+        nameGap: 30 // y location
       };
+      if (chartData.xAxisData) {
+        xAxis.show = chartData.xAxisData.show;
+        xAxis.name = chartData.xAxisData.title;
+        xAxis.data = chartData.xAxisData.labels;
+        xAxis.axisLabel = createTextStyle(chartData.xAxisData.labelStyle);
+        xAxis.nameTextStyle = createTextStyle(chartData.xAxisData.titleTextStyle);
+      }
 
       let yAxis = {
         type: 'value',
+        show: false,
         nameLocation: 'middle',
         nameGap: 30,
-        name: chartData.yAxisData.title
       };
+      if (chartData.yAxisData) {
+        yAxis.show = chartData.yAxisData.show;
+        yAxis.name = chartData.yAxisData.title;
+        yAxis.axisLabel = createTextStyle(chartData.yAxisData.labelStyle);
+        yAxis.nameTextStyle = createTextStyle(chartData.yAxisData.titleTextStyle);
+      }
 
       let series = [];
       for (let i = 0; i < chartData.seriesData.length; i++) {
@@ -2537,10 +2551,65 @@ var sfchart = function () {
       };
 
       return {
+        textStyle: textStyle,
         xAxis: xAxis,
         yAxis: yAxis,
         series: series
       };
+
+      function createTextStyle(textStyleData) {
+        if (Helper.isNullOrEmptyObject(textStyleData))
+          return;
+
+        let textStyle = { show: textStyleData.show };
+        if (textStyleData.rotate) {
+          textStyle.rotate = textStyleData.rotate;
+        }
+        if (textStyleData.formatter) {
+          textStyle.formatter = textStyleData.formatter;
+        }
+        if (textStyleData.fontColor) {
+          textStyle.color = textStyleData.fontColor;
+        }
+        if (textStyleData.fontSize) {
+          textStyle.fontSize = textStyleData.fontSize;
+        }
+        if (textStyleData.fontStyle) {
+          // ECharts supports: 'normal', 'italic', 'oblique'
+          textStyle.fontStyle = textStyleData.fontStyle;
+        }
+        if (textStyleData.fontWeight) {
+          // ECharts supports:: 'normal', 'bold', 'bolder', 'lighter'
+          var weight = 'normal';
+          switch (textStyleData.fontWeight) {
+            case 'narrow':
+              weight = 'lighter';
+              break;
+            case 'italic':
+              weight = 'italic';
+              break;
+            case 'bold':
+              weight = 'bolder';
+              break;
+            case 'black':
+              weight = 'bold';
+              break;
+            case 'oblique':
+              weight = 'oblique';
+              break;
+          }
+          textStyle.fontWeight = weight;
+        }
+        if (textStyleData.fontFamily) {
+          textStyle.fontFamily = textStyleData.fontFamily;
+        }
+
+        if (textStyleData.backgroundColor) {
+          textStyle.backgroundColor = textStyleData.backgroundColor;
+        }
+
+        return textStyle;
+      }
     }
   }
 

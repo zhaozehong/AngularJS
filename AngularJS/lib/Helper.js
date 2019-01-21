@@ -5,7 +5,7 @@ var Helper = function () {
     var _t;
     return ((_t = typeof (o)) == "object" ? o == null && "null" || Object.prototype.toString.call(o).slice(8, -1) : _t).toLowerCase();
   }
-  function deepCopy(source, destination) {
+  let deepCopy = function(source, destination) {
     if (!source || !destination)
       return;
 
@@ -19,8 +19,7 @@ var Helper = function () {
       }
     }
   }
-
-  var deepClone = function (obj) {
+  let deepClone = function (obj) {
     if (obj === null) return null
     if (typeof obj !== 'object') return obj;
     if (obj.constructor === Date) return new Date(obj);
@@ -34,9 +33,16 @@ var Helper = function () {
     }
     return newObj;
   };
+  let isNullOrEmptyObject = function(obj) {
+    for (var key in obj) {
+      return false;
+    }
+    return true;
+  }
 
   return {
     deepCopy: deepCopy,
     deepClone: deepClone,
+    isNullOrEmptyObject: isNullOrEmptyObject,
   }
 }();

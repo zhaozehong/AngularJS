@@ -17,13 +17,60 @@ app.controller("MainController", function ($scope, $timeout, $location) {
     qdasIndValueChart: {
       highlightedColor: 'blue',
       weightWidth: 2,
+      textStyle: {
+        color: '#fff',
+        fontStyle: 'normal', // Q-DAS supports: 'normal', 'italic', 'oblique'
+        fontWeight: 'normal', // Q-DAS supports: 'narrow', 'italic', 'regular', 'bold', 'black', 'oblique'
+        fontFamily: 'sans-serif',
+        fontSize: 12
+      },
 
       xAxisData: {
+        show: true,
         title: 'Value No. ->',
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        labelStyle: {
+          show: true,
+          rotate: 0,
+          formatter: null,
+          fontSize: 15,
+          fontColor: '#231',
+          fontStyle: 'oblique',
+          fontWeight: 'bold',
+          fontFamily: 'sans-serif',
+          backgroundColor: 'transparent',
+          // shadow...
+        },
+        titleTextStyle: {
+          fontSize: 18,
+          fontColor: '#000',
+          fontStyle: '',
+          fontWeight: '',
+          fontFamily: 'sans-serif',
+        }
       },
       yAxisData: {
-        title: 'Data (mm) ->'
+        show: true,
+        title: 'Data (mm) ->',
+        labelStyle: {
+          show: true,
+          rotate: 0,
+          formatter: null,
+          fontSize: 15,
+          fontColor: '#970',
+          fontStyle: 'oblique',
+          fontWeight: 'bold',
+          fontFamily: 'sans-serif',
+          backgroundColor: 'transparent',
+          // shadow...
+        },
+        titleTextStyle: {
+          fontSize: 18,
+          fontColor: '#fff',
+          fontStyle: 'italic',
+          fontWeight: 'narrow',
+          fontFamily: 'sans-serif',
+        }
       },
       seriesData: [
         {
