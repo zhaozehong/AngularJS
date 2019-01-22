@@ -5,6 +5,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
   $scope.showSymbols = true;
   $scope.showRemovedValues = "On";
   $scope.subgroupSize = 3;
+
   $scope.apply = function () {
     if (!$scope.chart)
       return;
@@ -197,7 +198,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
           delete serieData.markPointsData;
           for (let j = 0; j < serieData.pointsData.length; j++) {
             let pointData = serieData.pointsData[j];
-            if (pointData.marker)
+            if (pointData && pointData.marker)
               delete pointData.marker;
           }
         }

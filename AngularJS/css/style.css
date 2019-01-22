@@ -22,7 +22,7 @@ html, body {
 }
 
 #content {
-  background-color: #cc85d9;
+  /*background-color: #cc85d9;*/
   width: 100%;
   position: absolute;
   top: 100px;
@@ -39,9 +39,50 @@ html, body {
 .chartContainer {
   height: 100%;
 }
+
 .chartContainer1 {
   height: 50%;
 }
+
+.tab .tabHead {
+  width: 100%;
+  border-bottom: 1px solid #f3f3f3;
+  overflow: hidden;
+  padding-left: 10px;
+  /*border-bottom: #fc0;*/
+}
+
+  .tab .tabHead .tabHeadItem {
+    float: left;
+    list-style: none;
+    text-align: center;
+    background-color: #ddd;
+    border-bottom: 1px;
+    padding: 5px 10px;
+    margin-left: 2px;
+    cursor: pointer;
+  }
+
+  .tab .tabHead .active {
+    background-color: #fc0;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+.select-ul {
+  list-style: none;
+  padding: 0px 5px;
+}
+
+  .select-ul .select-li {
+    margin-right: 4px;
+  }
+
+
+
+
+
+
 
 
 

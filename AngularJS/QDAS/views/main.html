@@ -1,42 +1,49 @@
 ﻿<div class="viewContainer">
-  <div class="col-md-3">
-    <!--Display of values-->
-    <fieldset class="row">
-      <legend><strong>Display of values</strong></legend>
-      <ul>
-        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Successive" />Connecting lines on</li>
-        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Subgroups" />Connecting lines in subgroups</li>
-        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Highlighted" />Highlighted subgroups</li>
-        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="highlightedInColor" />Subgroups highlighted in color</li>
-        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="Deviation" />Deviation from tolerance center</li>
-        <li><input type="radio" name="DisplayMode" style="margin-right:4px" ng-model="displayMode" value="LineOff" />Connection lines off</li>
+  <div class="col-md-3 main" id="main">
+    <div class="tab">
+      <ul class="tabHead" ng-init='activeTab=1'>
+        <li ng-class='{active:activeTab==1, tabHeadItem:true}' ng-click='activeTab=1'>Font</li>
+        <li ng-class='{active:activeTab==2, tabHeadItem:true}' ng-click='activeTab=2'>tab2</li>
+        <li ng-class='{active:activeTab==3, tabHeadItem:true}' ng-click='activeTab=3'>tab3</li>
+        <li ng-class='{active:activeTab==4, tabHeadItem:true}' ng-click='activeTab=4'>tab4</li>
       </ul>
-    </fieldset>
-    <span style="color:blue; font-weight:700">Current Value: </span>{{displayMode}}
+      <div class="tabContent">
+        <!--Font-->
+        <div ng-show='activeTab==1'>
+          <!--Display of values-->
+          <strong>Display of values</strong><br />
+          <ul class="select-ul">
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Successive" />Connecting lines on</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Subgroups" />Connecting lines in subgroups</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Highlighted" />Highlighted subgroups</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="highlightedInColor" />Subgroups highlighted in color</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Deviation" />Deviation from tolerance center</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="LineOff" />Connection lines off</li>
+          </ul>
 
-    <!--Value symbol on/off-->
-    <fieldset class="row">
-      <legend><strong>Value symbol on/off</strong></legend>
-      <ul>
-        <li><input type="radio" name="ShowSymbols" style="margin-right:4px" ng-model="showSymbols" ng-value="true" />Symbols on</li>
-        <li><input type="radio" name="ShowSymbols" style="margin-right:4px" ng-model="showSymbols" ng-value="false" />Symbols off</li>
-      </ul>
-    </fieldset>
-    <span style="color:blue; font-weight:700">Current Value: </span>{{showSymbols}}
+          <!--Value symbol on/off-->
+          <strong>Value symbol on/off</strong>
+          <ul class="select-ul">
+            <li><input type="radio" name="ShowSymbols" class="select-li" ng-model="showSymbols" ng-value="true" />Symbols on</li>
+            <li><input type="radio" name="ShowSymbols" class="select-li" ng-model="showSymbols" ng-value="false" />Symbols off</li>
+          </ul>
 
-    <!--Show/hide removed values-->
-    <fieldset class="row">
-      <legend><strong>Show/hide removed values</strong></legend>
-      <ul>
-        <li><input type="radio" name="ShowRemovedValues" style="margin-right:4px" ng-model="showRemovedValues" value="On" />Invalid valus on</li>
-        <li><input type="radio" name="ShowRemovedValues" style="margin-right:4px" ng-model="showRemovedValues" value="OffWithBridging" />Invalid valus off(include bridging)</li>
-        <li><input type="radio" name="ShowRemovedValues" style="margin-right:4px" ng-model="showRemovedValues" value="OffWithoutBridging" />Invalid valus off(without bridging)</li>
-      </ul>
-    </fieldset>
-    <span style="color:blue; font-weight:700">Current Value: </span>{{showRemovedValues}}
-    
-    <br />
-    <button ng-click="apply()" style="float:right">Apply</button>
+          <!--Show/hide removed values-->
+          <strong>Show/hide removed values</strong>
+          <ul class="select-ul">
+            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="showRemovedValues" value="On" />Invalid valus on</li>
+            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="showRemovedValues" value="OffWithBridging" />Invalid valus off(include bridging)</li>
+            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="showRemovedValues" value="OffWithoutBridging" />Invalid valus off(without bridging)</li>
+          </ul>
+        </div>
+        <div ng-show='activeTab==2'>西北歌王是谁？</div>
+        <div ng-show='activeTab==3'>他有怎样传奇的故事？下一节见分晓</div>
+        <div ng-show='activeTab==4'>他就是……海克斯康集团的卫敏军，卫总</div>
+      </div>
+
+      <br />
+      <button ng-click="apply()" style="float:right; margin-bottom:10px">Apply</button>
+    </div>
   </div>
   <div class="col-md-9 chartContainer">
     <sfchartelement data="data" charttype="qdasIndValueChart" chart="chart"></sfchartelement>
