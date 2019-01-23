@@ -13,30 +13,33 @@
           <!--Display of values-->
           <strong>Display of values</strong><br />
           <ul class="select-ul">
-            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Successive" />Connecting lines on</li>
-            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Subgroups" />Connecting lines in subgroups</li>
-            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Highlighted" />Highlighted subgroups</li>
-            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="highlightedInColor" />Subgroups highlighted in color</li>
-            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="Deviation" />Deviation from tolerance center</li>
-            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="displayMode" value="LineOff" />Connection lines off</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="qdasOption.displayMode" value="Successive" />Connecting lines on</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="qdasOption.displayMode" value="Subgroups" />Connecting lines in subgroups</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="qdasOption.displayMode" value="Highlighted" />Highlighted subgroups</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="qdasOption.displayMode" value="highlightedInColor" />Subgroups highlighted in color</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="qdasOption.displayMode" value="Deviation" />Deviation from tolerance center</li>
+            <li><input type="radio" name="DisplayMode" class="select-li" ng-model="qdasOption.displayMode" value="LineOff" />Connection lines off</li>
           </ul>
 
           <!--Value symbol on/off-->
           <strong>Value symbol on/off</strong>
           <ul class="select-ul">
-            <li><input type="radio" name="ShowSymbols" class="select-li" ng-model="showSymbols" ng-value="true" />Symbols on</li>
-            <li><input type="radio" name="ShowSymbols" class="select-li" ng-model="showSymbols" ng-value="false" />Symbols off</li>
+            <li><input type="radio" name="ShowSymbols" class="select-li" ng-model="qdasOption.showSymbols" ng-value="true" />Symbols on</li>
+            <li><input type="radio" name="ShowSymbols" class="select-li" ng-model="qdasOption.showSymbols" ng-value="false" />Symbols off</li>
           </ul>
 
           <!--Show/hide removed values-->
           <strong>Show/hide removed values</strong>
           <ul class="select-ul">
-            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="showRemovedValues" value="On" />Invalid valus on</li>
-            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="showRemovedValues" value="OffWithBridging" />Invalid valus off(include bridging)</li>
-            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="showRemovedValues" value="OffWithoutBridging" />Invalid valus off(without bridging)</li>
+            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="qdasOption.showRemovedValues" value="On" />Invalid valus on</li>
+            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="qdasOption.showRemovedValues" value="OffWithBridging" />Invalid valus off(include bridging)</li>
+            <li><input type="radio" name="ShowRemovedValues" class="select-li" ng-model="qdasOption.showRemovedValues" value="OffWithoutBridging" />Invalid valus off(without bridging)</li>
           </ul>
         </div>
-        <div ng-show='activeTab==2'>西北歌王是谁？</div>
+        <div ng-show='activeTab==2'>
+          <input type="checkbox" ng-model="qdasOption.markBeyondUsl.show" />mark values above the alarm limit<br/>
+          <input type="checkbox" ng-model="qdasOption.markBeyondLsl.show" />mark values below the alarm limit<br/>
+        </div>
         <div ng-show='activeTab==3'>他有怎样传奇的故事？下一节见分晓</div>
         <div ng-show='activeTab==4'>他就是……海克斯康集团的卫敏军，卫总</div>
       </div>

@@ -1,11 +1,26 @@
 ﻿'use strict';
 
 app.controller("MainController", function ($scope, $timeout, $location) {
-  $scope.displayMode = "Successive";
-  $scope.showSymbols = true;
-  $scope.showRemovedValues = "On";
-  $scope.subgroupSize = 3;
-
+  $scope.qdasOption = {
+    displayMode: "Successive",
+    showSymbols: true,
+    showRemovedValues: "On",
+    subgroupSize: 3,
+    markBeyondUsl: {
+      show: true,
+      symbol: 'arrow',
+      symbolSize: qdasHelper.markerPointSize,
+      color: 'red',
+      rotate: 0,
+    },
+    markBeyondLsl: {
+      show: true,
+      symbol: 'arrow',
+      symbolSize: qdasHelper.markerPointSize,
+      color: 'red',
+      rotate: 180,
+    },
+  }
   $scope.apply = function () {
     if (!$scope.chart)
       return;
@@ -18,6 +33,24 @@ app.controller("MainController", function ($scope, $timeout, $location) {
     qdasIndValueChart: {
       highlightedColor: 'blue',
       weightWidth: 2,
+      tolerance: {
+        show: true,
+        usl: 25,
+        lsl: 10,
+        markBeyondUsl: {
+          symbol: 'arrow',
+          symbolSize: qdasHelper.markerPointSize,
+          color: 'red',
+          rotate: 0,
+        },
+        markBeyondLsl: {
+          symbol: 'arrow',
+          symbolSize: qdasHelper.markerPointSize,
+          color: 'red',
+          rotate: 180,
+        },
+      },
+
       textStyle: {
         color: '#fff',
         fontStyle: 'normal', // Q-DAS supports: 'normal', 'italic', 'oblique'
@@ -35,14 +68,14 @@ app.controller("MainController", function ($scope, $timeout, $location) {
           rotate: 0,
           formatter: null,
           fontSize: 15,
-          fontColor: '#231',
+          fontColor: '#d4a',
           fontStyle: 'oblique',
           fontWeight: 'bold',
           fontFamily: 'sans-serif',
           backgroundColor: 'transparent',
           // shadow...
         },
-        titleTextStyle: {
+        titleStyle: {
           fontSize: 18,
           fontColor: '#000',
           fontStyle: '',
@@ -65,7 +98,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
           backgroundColor: 'transparent',
           // shadow...
         },
-        titleTextStyle: {
+        titleStyle: {
           fontSize: 18,
           fontColor: '#fff',
           fontStyle: 'italic',
@@ -109,17 +142,10 @@ app.controller("MainController", function ($scope, $timeout, $location) {
             }
           ],
           markPointsData: [{
-            type: 'max',
+            type: 'average',
             symbol: 'arrow',
             symbolSize: qdasHelper.markerPointSize,
-            rotate: 0,
-            color: 'red'
-          }, {
-            type: 'min',
-            symbol: 'arrow',
-            symbolSize: qdasHelper.markerPointSize,
-            rotate: 180,
-            color: 'red'
+            color: 'black'
           }],
           markLineData: {
             enableHit: false,
@@ -170,9 +196,10 @@ app.controller("MainController", function ($scope, $timeout, $location) {
 
   function getUpdatedData() {
     var data = Helper.deepClone($scope.data);
+    var option = $scope.qdasOption;
 
     // handle displayMode
-    switch ($scope.displayMode) {
+    switch (option.displayMode) {
       case "LineOff":
         data.qdasIndValueChart.seriesData.forEach(v => v.width = 0);
         break;
@@ -191,7 +218,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
       // do nothing
     }
     // handle showSymbols
-    if (!$scope.showSymbols) {
+    if (!option.showSymbols) {
       for (let i = 0; i < data.qdasIndValueChart.seriesData.length; i++) {
         let serieData = data.qdasIndValueChart.seriesData[i];
         if (serieData) {
@@ -204,14 +231,43 @@ app.controller("MainController", function ($scope, $timeout, $location) {
         }
       }
     }
-
     // handle showRemovedValues
-    switch ($scope.showRemovedValues) {
+    switch (option.showRemovedValues) {
       case "OffWithBridging":
         break;
       case "OffWithoutBridging":
         break;
       default: // "On"
+    }
+
+    // show/hide mark for beyond spec values
+    if (data.qdasIndValueChart.tolerance) {
+      if (option.markBeyondUsl.show && option.showSymbols) {
+        if (!data.qdasIndValueChart.tolerance.markBeyondUsl) {
+          data.qdasIndValueChart.tolerance.markBeyondUsl = {};
+        }
+        data.qdasIndValueChart.tolerance.markBeyondUsl.symbol = option.markBeyondUsl.symbol;
+        data.qdasIndValueChart.tolerance.markBeyondUsl.symbolSize = option.markBeyondUsl.symbolSize;
+        data.qdasIndValueChart.tolerance.markBeyondUsl.color = option.markBeyondUsl.color;
+        data.qdasIndValueChart.tolerance.markBeyondUsl.rotate = option.markBeyondUsl.rotate;
+      } else {
+        if (data.qdasIndValueChart.tolerance.markBeyondUsl) {
+          delete data.qdasIndValueChart.tolerance.markBeyondUsl;
+        }
+      }
+      if (option.markBeyondLsl.show && option.showSymbols) {
+        if (!data.qdasIndValueChart.tolerance.markBeyondLsl) {
+          data.qdasIndValueChart.tolerance.markBeyondLsl = {};
+        }
+        data.qdasIndValueChart.tolerance.markBeyondLsl.symbol = option.markBeyondLsl.symbol;
+        data.qdasIndValueChart.tolerance.markBeyondLsl.symbolSize = option.markBeyondLsl.symbolSize;
+        data.qdasIndValueChart.tolerance.markBeyondLsl.color = option.markBeyondLsl.color;
+        data.qdasIndValueChart.tolerance.markBeyondLsl.rotate = option.markBeyondLsl.rotate;
+      } else {
+        if (data.qdasIndValueChart.tolerance.markBeyondLsl) {
+          delete data.qdasIndValueChart.tolerance.markBeyondLsl;
+        }
+      }
     }
 
     return data;
@@ -237,8 +293,8 @@ app.controller("MainController", function ($scope, $timeout, $location) {
       }
 
       let pointsCount = serie1.pointsData.length;
-      for (let i = 0; i < pointsCount; i += $scope.subgroupSize) {
-        for (let j = 0; j < $scope.subgroupSize; j++) {
+      for (let i = 0; i < pointsCount; i += option.subgroupSize) {
+        for (let j = 0; j < option.subgroupSize; j++) {
           if (i + j >= pointsCount)
             break;
 
@@ -247,7 +303,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
           } else {
             serie1.pointsData[i + j] = null;
           }
-          if (serie3 && j != 0 && j != $scope.subgroupSize - 1) {
+          if (serie3 && j != 0 && j != option.subgroupSize - 1) {
             serie3.pointsData[i + j] = null;
           }
         }

@@ -2429,7 +2429,7 @@ var sfchart = function () {
         xAxis.name = chartData.xAxisData.title;
         xAxis.data = chartData.xAxisData.labels;
         xAxis.axisLabel = createTextStyle(chartData.xAxisData.labelStyle);
-        xAxis.nameTextStyle = createTextStyle(chartData.xAxisData.titleTextStyle);
+        xAxis.nameTextStyle = createTextStyle(chartData.xAxisData.titleStyle);
       }
 
       let yAxis = {
@@ -2442,7 +2442,7 @@ var sfchart = function () {
         yAxis.show = chartData.yAxisData.show;
         yAxis.name = chartData.yAxisData.title;
         yAxis.axisLabel = createTextStyle(chartData.yAxisData.labelStyle);
-        yAxis.nameTextStyle = createTextStyle(chartData.yAxisData.titleTextStyle);
+        yAxis.nameTextStyle = createTextStyle(chartData.yAxisData.titleStyle);
       }
 
       let series = [];
@@ -2452,7 +2452,7 @@ var sfchart = function () {
         let markPoints = [];
 
         // special marker points
-        if (serieData.markPointsData) {
+        if (false && serieData.markPointsData) {
           for (let k = 0; k < serieData.markPointsData.length; k++) {
             let markPointData = serieData.markPointsData[k];
             let markPoint = { type: markPointData.type };
@@ -2477,18 +2477,42 @@ var sfchart = function () {
           }
 
           data.push(pointData.value);
-          if (pointData.marker) {
+
+          var markInfo = {};
+          if (i == 0 && chartData.tolerance) {
+            if (chartData.tolerance.usl && chartData.tolerance.markBeyondUsl && pointData.value > chartData.tolerance.usl) {
+              markInfo.symbol = chartData.tolerance.markBeyondUsl.symbol;
+              markInfo.symbolSize = chartData.tolerance.markBeyondUsl.symbolSize;
+              markInfo.rotate = chartData.tolerance.markBeyondUsl.rotate;
+              markInfo.color = chartData.tolerance.markBeyondUsl.color;
+            }
+            else if (chartData.tolerance.lsl && chartData.tolerance.markBeyondLsl && pointData.value < chartData.tolerance.lsl) {
+              markInfo.symbol = chartData.tolerance.markBeyondLsl.symbol;
+              markInfo.symbolSize = chartData.tolerance.markBeyondLsl.symbolSize;
+              markInfo.rotate = chartData.tolerance.markBeyondLsl.rotate;
+              markInfo.color = chartData.tolerance.markBeyondLsl.color;
+            }
+          }
+          if (Helper.isNullOrEmptyObject(markInfo) && pointData.marker) {
+            markInfo.name = pointData.marker.name;
+            markInfo.symbol = pointData.marker.symbol;
+            markInfo.symbolSize = pointData.marker.symbolSize;
+            markInfo.rotate = pointData.marker.rotate;
+            markInfo.color = pointData.marker.color;
+          }
+
+          if (!Helper.isNullOrEmptyObject(markInfo)) {
             let markPoint = { coord: [k, pointData.value] };
-            if (pointData.marker.name)
-              markPoint.name = pointData.marker.name;
-            if (pointData.marker.symbol)
-              markPoint.symbol = pointData.marker.symbol;
-            if (pointData.marker.symbolSize)
-              markPoint.symbolSize = pointData.marker.symbolSize;
-            if (pointData.marker.rotate)
-              markPoint.symbolRotate = pointData.marker.rotate;
-            if (pointData.marker.color)
-              markPoint.itemStyle = { color: pointData.marker.color };
+            if (markInfo.name)
+              markPoint.name = markInfo.name;
+            if (markInfo.symbol)
+              markPoint.symbol = markInfo.symbol;
+            if (markInfo.symbolSize)
+              markPoint.symbolSize = markInfo.symbolSize;
+            if (markInfo.rotate)
+              markPoint.symbolRotate = markInfo.rotate;
+            if (markInfo.color)
+              markPoint.itemStyle = { color: markInfo.color };
 
             markPoints.push(markPoint);
           }
