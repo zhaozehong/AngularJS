@@ -6,7 +6,7 @@ var sfchart = function () {
     if (!data.hasOwnProperty(key))
       return;
 
-    var chartData = data[key];
+    var chartData = Helper.deepClone(data[key]);
 
     if (charttype == "line") {
       return getLineOption();
@@ -2446,13 +2446,22 @@ var sfchart = function () {
       }
 
       let series = [];
-      for (let i = 0; i < chartData.seriesData.length; i++) {
-        let serieData = chartData.seriesData[i];
+      let updatedSeriesData = getUpdatedSeriesData();
+      if (chartData.qdasOptions.displayMode == 'LineOff') {
+        updatedSeriesData.forEach(v => v.width = 0);
+      }
+      if (!chartData.qdasOptions.showSymbols && chartData.qdasOptions.tolerance) {
+        delete chartData.qdasOptions.tolerance.markBeyondUsl;
+        delete chartData.qdasOptions.tolerance.markBeyondLsl;
+      }
+
+      for (let i = 0; i < updatedSeriesData.length; i++) {
+        let serieData = updatedSeriesData[i];
         let data = [];
         let markPoints = [];
 
         // special marker points
-        if (false && serieData.markPointsData) {
+        if (serieData.markPointsData) {
           for (let k = 0; k < serieData.markPointsData.length; k++) {
             let markPointData = serieData.markPointsData[k];
             let markPoint = { type: markPointData.type };
@@ -2478,19 +2487,21 @@ var sfchart = function () {
 
           data.push(pointData.value);
 
-          var markInfo = {};
-          if (i == 0 && chartData.tolerance) {
-            if (chartData.tolerance.usl && chartData.tolerance.markBeyondUsl && pointData.value > chartData.tolerance.usl) {
-              markInfo.symbol = chartData.tolerance.markBeyondUsl.symbol;
-              markInfo.symbolSize = chartData.tolerance.markBeyondUsl.symbolSize;
-              markInfo.rotate = chartData.tolerance.markBeyondUsl.rotate;
-              markInfo.color = chartData.tolerance.markBeyondUsl.color;
+          // markPoints
+          let markInfo = {};
+          let tolerance = chartData.qdasOptions.tolerance;
+          if ((i == 0 || i == 1) && tolerance) {
+            if (tolerance.usl && tolerance.markBeyondUsl && tolerance.markBeyondUsl.show && pointData.value > tolerance.usl) {
+              markInfo.symbol = tolerance.markBeyondUsl.symbol;
+              markInfo.symbolSize = tolerance.markBeyondUsl.symbolSize;
+              markInfo.rotate = tolerance.markBeyondUsl.rotate;
+              markInfo.color = tolerance.markBeyondUsl.color;
             }
-            else if (chartData.tolerance.lsl && chartData.tolerance.markBeyondLsl && pointData.value < chartData.tolerance.lsl) {
-              markInfo.symbol = chartData.tolerance.markBeyondLsl.symbol;
-              markInfo.symbolSize = chartData.tolerance.markBeyondLsl.symbolSize;
-              markInfo.rotate = chartData.tolerance.markBeyondLsl.rotate;
-              markInfo.color = chartData.tolerance.markBeyondLsl.color;
+            else if (tolerance.lsl && tolerance.markBeyondLsl && tolerance.markBeyondLsl.show && pointData.value < tolerance.lsl) {
+              markInfo.symbol = tolerance.markBeyondLsl.symbol;
+              markInfo.symbolSize = tolerance.markBeyondLsl.symbolSize;
+              markInfo.rotate = tolerance.markBeyondLsl.rotate;
+              markInfo.color = tolerance.markBeyondLsl.color;
             }
           }
           if (Helper.isNullOrEmptyObject(markInfo) && pointData.marker) {
@@ -2500,7 +2511,6 @@ var sfchart = function () {
             markInfo.rotate = pointData.marker.rotate;
             markInfo.color = pointData.marker.color;
           }
-
           if (!Helper.isNullOrEmptyObject(markInfo)) {
             let markPoint = { coord: [k, pointData.value] };
             if (markInfo.name)
@@ -2518,11 +2528,11 @@ var sfchart = function () {
           }
         }
 
+        // markLine
         let markLine = {};
         if (serieData.markLineData) {
           var lineDataArray = [];
           if (serieData.markLineData.horizontalLinesData) {
-            
             for (let k = 0; k < serieData.markLineData.horizontalLinesData.length; k++) {
               let horizontalLineData = serieData.markLineData.horizontalLinesData[k];
               let lineData = {
@@ -2628,12 +2638,88 @@ var sfchart = function () {
         if (textStyleData.fontFamily) {
           textStyle.fontFamily = textStyleData.fontFamily;
         }
-
         if (textStyleData.backgroundColor) {
           textStyle.backgroundColor = textStyleData.backgroundColor;
         }
 
         return textStyle;
+      }
+      function getUpdatedSeriesData() {
+        let seriesData = [Helper.deepClone(chartData.lineData)];
+        switch (chartData.qdasOptions.displayMode) {
+          case "Subgroups":
+            subgroups(false, false, false);
+            break;
+          case "Highlighted":
+            subgroups(true, false, true);
+            break;
+          case "highlightedInColor":
+            subgroups(false, true, false);
+            break;
+          case "Deviation":
+            break;
+        }
+        return seriesData;
+
+        function subgroups(connected, colored, weighted) {
+          seriesData.push(Helper.deepClone(chartData.lineData));
+          if (connected) {
+            seriesData.push(Helper.deepClone(chartData.lineData));
+          }
+
+          let subgroupSize = chartData.qdasOptions.subgroup ? chartData.qdasOptions.subgroup.subgroupSize : 3;
+          let weightWidth = chartData.qdasOptions.subgroup ? chartData.qdasOptions.subgroup.weightWidth : 2;
+          let highlightColor = chartData.qdasOptions.subgroup ? chartData.qdasOptions.subgroup.highlightColor : 'blue';
+
+          let serie1 = seriesData[0];
+          let serie2 = seriesData[1];
+          let serie3 = seriesData[2];
+
+          if (colored) {
+            serie2.color = highlightColor;
+          }
+          if (weighted) {
+            serie1.width = weightWidth;
+            serie2.width = weightWidth;
+          }
+
+          let pointsCount = serie1.pointsData.length;
+          for (let i = 0; i < pointsCount; i += subgroupSize) {
+            for (let j = 0; j < subgroupSize; j++) {
+              let index = i + j;
+              if (index >= pointsCount)
+                break;
+
+              if (i % 2 == 0) {
+                serie2.pointsData[index] = null;
+              } else {
+                serie1.pointsData[index] = null;
+              }
+              if (serie3 && j != 0 && j != subgroupSize - 1) {
+                serie3.pointsData[index] = null;
+              }
+
+              if (!chartData.qdasOptions.showSymbols && serie1.pointsData[index]) {
+                delete serie1.pointsData[index].marker;
+              }
+              if (serie2.pointsData[index])
+                delete serie2.pointsData[index].marker;
+              if (serie3 && serie3.pointsData[index]) {
+                delete serie3.pointsData[index].marker;
+              }
+            }
+          }
+
+          // others
+          if (!chartData.qdasOptions.showSymbols) {
+            delete serie1.markPointsData;
+          }
+          delete serie2.markPointsData;
+          if (serie3) {
+            delete serie3.markPointsData;
+            serie3.width = 1;
+          }
+        }
       }
     }
   }
