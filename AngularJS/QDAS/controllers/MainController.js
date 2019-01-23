@@ -142,7 +142,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
             }
           ],
           markPointsData: [{
-            type: 'average',
+            type: 'average', // can be 'max', 'min' or 'average'
             symbol: 'arrow',
             symbolSize: qdasHelper.markerPointSize,
             color: 'black'
@@ -150,7 +150,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
           markLineData: {
             enableHit: false,
             symbol: 'none',
-            xAxisLinesData: [
+            horizontalLinesData: [
               {
                 name: 'Xlo3',
                 axisValue: 10,

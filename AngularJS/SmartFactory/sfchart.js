@@ -2521,33 +2521,34 @@ var sfchart = function () {
         let markLine = {};
         if (serieData.markLineData) {
           var lineDataArray = [];
-          if (serieData.markLineData.xAxisLinesData) {
-            for (let k = 0; k < serieData.markLineData.xAxisLinesData.length; k++) {
-              let xAxisLineData = serieData.markLineData.xAxisLinesData[k];
+          if (serieData.markLineData.horizontalLinesData) {
+            
+            for (let k = 0; k < serieData.markLineData.horizontalLinesData.length; k++) {
+              let horizontalLineData = serieData.markLineData.horizontalLinesData[k];
               let lineData = {
-                name: xAxisLineData.name,
-                xAxis: xAxisLineData.axisValue,
+                name: horizontalLineData.name,
+                yAxis: horizontalLineData.axisValue,
               };
-              if (xAxisLineData.lineStyle) {
+              if (horizontalLineData.lineStyle) {
                 lineData.lineStyle = {
-                  type: xAxisLineData.lineStyle.type,
-                  color: xAxisLineData.lineStyle.color
+                  type: horizontalLineData.lineStyle.type,
+                  color: horizontalLineData.lineStyle.color
                 }
               }
               lineDataArray.push(lineData);
             }
           }
-          if (serieData.markLineData.yAxisLinesData) {
-            for (let k = 0; k < serieData.markLineData.yAxisLinesData.length; k++) {
-              let yAxisLineData = serieData.markLineData.yAxisLineData[k];
+          if (serieData.markLineData.verticalLinesData) {
+            for (let k = 0; k < serieData.markLineData.verticalLinesData.length; k++) {
+              let verticalLineData = serieData.markLineData.verticalLinesData[k];
               let lineData = {
-                name: yAxisLineData.name,
-                yAxis: yAxisLineData.axisValue,
+                name: verticalLineData.name,
+                xAxis: verticalLineData.axisValue,
               };
-              if (yAxisLineData.lineStyle) {
+              if (verticalLineData.lineStyle) {
                 lineData.lineStyle = {
-                  type: yAxisLineData.lineStyle.type,
-                  color: yAxisLineData.lineStyle.color
+                  type: verticalLineData.lineStyle.type,
+                  color: verticalLineData.lineStyle.color
                 }
               }
               lineDataArray.push(lineData);
