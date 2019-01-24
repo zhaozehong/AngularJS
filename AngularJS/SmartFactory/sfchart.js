@@ -2456,6 +2456,7 @@ var sfchart = function () {
         xAxis.data = chartData.xAxisData.labels;
         xAxis.axisLabel = createTextStyle(chartData.xAxisData.labelStyle);
         xAxis.nameTextStyle = createTextStyle(chartData.xAxisData.titleStyle);
+        xAxis.splitLine = { show: chartData.qdasOptions.showGrid };
       }
 
       let yAxis = {
@@ -2469,6 +2470,7 @@ var sfchart = function () {
         yAxis.name = chartData.yAxisData.title;
         yAxis.axisLabel = createTextStyle(chartData.yAxisData.labelStyle);
         yAxis.nameTextStyle = createTextStyle(chartData.yAxisData.titleStyle);
+        yAxis.splitLine = { show: chartData.qdasOptions.showGrid };
       }
 
       let series = [];

@@ -16,6 +16,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
         showRemovedValues: "On",
         displayMode: "Successive",
         showSymbols: true,
+        showGrid: false,
         subgroup: {
           subgroupSize: 3,
           weightWidth: 2,
