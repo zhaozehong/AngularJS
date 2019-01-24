@@ -24,43 +24,27 @@ app.controller("MainController", function ($scope, $timeout, $location) {
         },
         tolerance: {
           show: true,
-          usl: 25,
-          lsl: 10,
+          usl: 40,
+          lsl: 20,
           markBeyondUsl: {
             show: true,
-            symbol: 'arrow',
-            symbolSize: qdasHelper.markerPointSize,
+            showValue: true,
+            symbol: sfchart.symbolTypes.arrow,
+            symbolSize: sfchart.symbolSizes.normal,
             color: 'red',
             rotate: 0,
           },
           markBeyondLsl: {
             show: true,
-            symbol: 'arrow',
-            symbolSize: qdasHelper.markerPointSize,
+            showValue: true,
+            symbol: sfchart.symbolTypes.arrow,
+            symbolSize: sfchart.symbolSizes.normal,
             color: 'red',
             rotate: 180,
           },
           subgroupSize: 3,
-          subgroupSize: 3,
-        },
-
-        markBeyondUsl: {
-          show: true,
-          symbol: 'arrow',
-          symbolSize: qdasHelper.markerPointSize,
-          color: 'red',
-          rotate: 0,
-        },
-        markBeyondLsl: {
-          show: true,
-          symbol: 'arrow',
-          symbolSize: qdasHelper.markerPointSize,
-          color: 'red',
-          rotate: 180,
         },
       },
-
-
 
       // NOT show on options view
       textStyle: {
@@ -120,7 +104,8 @@ app.controller("MainController", function ($scope, $timeout, $location) {
       },
       lineData: {
         color: 'green',
-        symbolSize: qdasHelper.normalPointSize,
+        symbol: sfchart.symbolTypes.circle,
+        symbolSize: sfchart.symbolSizes.small,
         width: 1,
 
         pointsData: [
@@ -128,16 +113,11 @@ app.controller("MainController", function ($scope, $timeout, $location) {
             value: 15,
           }, {
             value: 5,
-            marker: {
-              symbol: 'arrow',
-              symbolSize: qdasHelper.markerPointSize,
-              rotate: 180,
-              color: 'red'
-            }
           }, {
             value: 35,
             marker: {
-              symbolSize: qdasHelper.markerPointBigSize,
+              symbol: sfchart.symbolTypes.diamond,
+              symbolSize: sfchart.symbolSizes.normal,
             }
           }, {
             value: 10,
@@ -147,54 +127,37 @@ app.controller("MainController", function ($scope, $timeout, $location) {
             value: 45,
           }, {
             value: 15,
-            marker: {
-              symbolSize: qdasHelper.markerPointBigSize
-            }
           }
         ],
         markPointsData: [{
           type: 'average', // can be 'max', 'min' or 'average'
-          symbol: 'arrow',
-          symbolSize: qdasHelper.markerPointSize,
-          color: 'black'
+          symbol: sfchart.symbolTypes.rect,
+          symbolSize: sfchart.symbolSizes.normal,
+          color: 'black',
         }],
         markLineData: {
           enableHit: false,
-          symbol: 'none',
+          symbol: sfchart.symbolTypes.none,
           horizontalLinesData: [
             {
               name: 'Xlo3',
               axisValue: 10,
               lineStyle: {
-                type: 'dashed',
+                type: sfchart.lineTypes.dashed,
                 color: 'blue'
-              }
-            }, {
-              name: 'LSL',
-              axisValue: 20,
-              lineStyle: {
-                type: 'solid',
-                color: 'red'
               }
             }, {
               name: 'X',
               axisValue: 30,
               lineStyle: {
-                type: 'dashed',
+                type: sfchart.lineTypes.dashed,
                 color: 'blue'
-              }
-            }, {
-              name: 'USL',
-              axisValue: 40,
-              lineStyle: {
-                type: 'solid',
-                color: 'red'
               }
             }, {
               name: 'Xup3',
               axisValue: 50,
               lineStyle: {
-                type: 'dashed',
+                type: sfchart.lineTypes.dashed,
                 color: 'blue'
               }
             }

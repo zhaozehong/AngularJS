@@ -1,12 +1,33 @@
 ﻿'user strict'
 
 var sfchart = function () {
+  let lineTypes = {
+    solid: 'solid',
+    dashed: 'dashed',
+    dotted: 'dotted',
+  };
+  let symbolTypes = {
+    circle: 'circle',
+    rect: 'rect',
+    roundRect: 'roundRect',
+    triangle: 'triangle',
+    diamond: 'diamond',
+    pin: 'pin',
+    arrow: 'arrow',
+
+    none: 'none'
+  };
+  let symbolSizes = {
+    small: 10,
+    normal: 20,
+    big: 30
+  };
   let getEChartOption = function (charttype, data, dataKey) {
-    var key = dataKey ? dataKey : charttype;
+    let key = dataKey ? dataKey : charttype;
     if (!data.hasOwnProperty(key))
       return;
 
-    var chartData = Helper.deepClone(data[key]);
+    let chartData = Helper.deepClone(data[key]);
 
     if (charttype == "line") {
       return getLineOption();
@@ -66,9 +87,9 @@ var sfchart = function () {
 
 
     function getLineOption() {
-      var legend = ["PH值", "溶解氧", "电导率", "温度值", "浊度值"];
-      var item = ["8:45", "8:47", "8:49", "8:51", "8:53", "8:55", "8:57", "8:59"];
-      var data = [
+      let legend = ["PH值", "溶解氧", "电导率", "温度值", "浊度值"];
+      let item = ["8:45", "8:47", "8:49", "8:51", "8:53", "8:55", "8:57", "8:59"];
+      let data = [
         ["7.95", "7.71", "7.16", "7.77", "7.99", "7.76", "7.91", "7.76"],
         ["8.42", "32.23", "33.44", "17.16", "7.08", "7.29", "7.18", "7.3"],
         ["257.85", "254.65", "253", "279.8", "206.6", "271.08", "286.24", "263.5"],
@@ -97,9 +118,9 @@ var sfchart = function () {
         }],
         // 数据内容数组
         series: function () {
-          var serie = [];
-          for (var i = 0; i < legend.length; i++) {
-            var item = {
+          let serie = [];
+          for (let i = 0; i < legend.length; i++) {
+            let item = {
               name: legend[i],
               type: 'line',
               data: data[i]
@@ -137,9 +158,9 @@ var sfchart = function () {
         },
 
         series: function () {
-          var serie = [];
-          for (var i = 0; i < chartData.legend.length; i++) {
-            var item = {
+          let serie = [];
+          for (let i = 0; i < chartData.legend.length; i++) {
+            let item = {
               name: chartData.legend[i],
               type: 'line',
               //stack: "总量",
@@ -152,8 +173,8 @@ var sfchart = function () {
       };
     }
     function getStackedAreaOption() {
-      var data = ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎'];
-      var seriesDatas = [
+      let data = ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎'];
+      let seriesDatas = [
         { name: '邮件营销', label: {}, data: [120, 132, 101, 134, 90, 230, 210] },
         { name: '联盟广告', label: {}, data: [220, 182, 191, 234, 290, 330, 310] },
         { name: '视频广告', label: {}, data: [150, 232, 201, 154, 190, 330, 410] },
@@ -210,9 +231,9 @@ var sfchart = function () {
           }
         ],
         series: function () {
-          var serie = [];
-          for (var i = 0; i < seriesDatas.length; i++) {
-            var item = {
+          let serie = [];
+          for (let i = 0; i < seriesDatas.length; i++) {
+            let item = {
               name: seriesDatas[i].name,
               type: 'line',
               stack: '总量',
@@ -227,7 +248,7 @@ var sfchart = function () {
       };
     }
     function getBarOption() {
-      var data = [120, 200, 150, 80, 70, 110, 130];
+      let data = [120, 200, 150, 80, 70, 110, 130];
       return {
         xAxis: {
           type: 'category',
@@ -312,8 +333,8 @@ var sfchart = function () {
           },
           {
             indicator: (function () {
-              var res = [];
-              for (var i = 1; i <= 12; i++) {
+              let res = [];
+              for (let i = 1; i <= 12; i++) {
                 res.push({ text: i + '月', max: 100 });
               }
               return res;
@@ -369,7 +390,7 @@ var sfchart = function () {
       };
     }
     function getSunburstOption() {
-      var data = [{
+      let data = [{
         name: 'Grandpa',
         children: [{
           name: 'Uncle Leo',
@@ -458,14 +479,14 @@ var sfchart = function () {
       };
     }
     function getHeatmapOption() {
-      var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
+      let hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
         '7a', '8a', '9a', '10a', '11a',
         '12p', '1p', '2p', '3p', '4p', '5p',
         '6p', '7p', '8p', '9p', '10p', '11p'];
-      var days = ['Saturday', 'Friday', 'Thursday',
+      let days = ['Saturday', 'Friday', 'Thursday',
         'Wednesday', 'Tuesday', 'Monday', 'Sunday'];
 
-      var data = [[0, 0, 5], [0, 1, 1], [0, 2, 0], [0, 3, 0], [0, 4, 0], [0, 5, 0], [0, 6, 0], [0, 7, 0], [0, 8, 0], [0, 9, 0], [0, 10, 0], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 0], [1, 2, 0], [1, 3, 0], [1, 4, 0], [1, 5, 0], [1, 6, 0], [1, 7, 0], [1, 8, 0], [1, 9, 0], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 14], [4, 16, 12], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]];
+      let data = [[0, 0, 5], [0, 1, 1], [0, 2, 0], [0, 3, 0], [0, 4, 0], [0, 5, 0], [0, 6, 0], [0, 7, 0], [0, 8, 0], [0, 9, 0], [0, 10, 0], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 0], [1, 2, 0], [1, 3, 0], [1, 4, 0], [1, 5, 0], [1, 6, 0], [1, 7, 0], [1, 8, 0], [1, 9, 0], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 14], [4, 16, 12], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]];
 
       data = data.map(function (item) {
         return [item[1], item[0], item[2] || '-'];
@@ -533,9 +554,9 @@ var sfchart = function () {
           }
         },
         series: function () {
-          var serie = [];
-          for (var i = 0; i < chartData.data.length; i++) {
-            var item = {
+          let serie = [];
+          for (let i = 0; i < chartData.data.length; i++) {
+            let item = {
               type: "gauge",
               name: chartData.data[i].name,
               min: chartData.data[i].min,
@@ -576,14 +597,14 @@ var sfchart = function () {
     }
     function get3dBarOption() {
 
-      var hours = [
+      let hours = [
         '12a', '1a', '2a', '3a', '4a', '5a', '6a',
         '7a', '8a', '9a', '10a', '11a',
         '12p', '1p', '2p', '3p', '4p', '5p',
         '6p', '7p', '8p', '9p', '10p', '11p'
       ];
-      var days = ['Saturday', 'Friday', 'Thursday', 'Wednesday', 'Tuesday', 'Monday', 'Sunday'];
-      var data = [[0, 0, 5], [0, 1, 1], [0, 2, 0], [0, 3, 0], [0, 4, 0], [0, 5, 0], [0, 6, 0], [0, 7, 0], [0, 8, 0], [0, 9, 0], [0, 10, 0], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 0], [1, 2, 0], [1, 3, 0], [1, 4, 0], [1, 5, 0], [1, 6, 0], [1, 7, 0], [1, 8, 0], [1, 9, 0], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 14], [4, 16, 12], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]];
+      let days = ['Saturday', 'Friday', 'Thursday', 'Wednesday', 'Tuesday', 'Monday', 'Sunday'];
+      let data = [[0, 0, 5], [0, 1, 1], [0, 2, 0], [0, 3, 0], [0, 4, 0], [0, 5, 0], [0, 6, 0], [0, 7, 0], [0, 8, 0], [0, 9, 0], [0, 10, 0], [0, 11, 2], [0, 12, 4], [0, 13, 1], [0, 14, 1], [0, 15, 3], [0, 16, 4], [0, 17, 6], [0, 18, 4], [0, 19, 4], [0, 20, 3], [0, 21, 3], [0, 22, 2], [0, 23, 5], [1, 0, 7], [1, 1, 0], [1, 2, 0], [1, 3, 0], [1, 4, 0], [1, 5, 0], [1, 6, 0], [1, 7, 0], [1, 8, 0], [1, 9, 0], [1, 10, 5], [1, 11, 2], [1, 12, 2], [1, 13, 6], [1, 14, 9], [1, 15, 11], [1, 16, 6], [1, 17, 7], [1, 18, 8], [1, 19, 12], [1, 20, 5], [1, 21, 5], [1, 22, 7], [1, 23, 2], [2, 0, 1], [2, 1, 1], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0], [2, 7, 0], [2, 8, 0], [2, 9, 0], [2, 10, 3], [2, 11, 2], [2, 12, 1], [2, 13, 9], [2, 14, 8], [2, 15, 10], [2, 16, 6], [2, 17, 5], [2, 18, 5], [2, 19, 5], [2, 20, 7], [2, 21, 4], [2, 22, 2], [2, 23, 4], [3, 0, 7], [3, 1, 3], [3, 2, 0], [3, 3, 0], [3, 4, 0], [3, 5, 0], [3, 6, 0], [3, 7, 0], [3, 8, 1], [3, 9, 0], [3, 10, 5], [3, 11, 4], [3, 12, 7], [3, 13, 14], [3, 14, 13], [3, 15, 12], [3, 16, 9], [3, 17, 5], [3, 18, 5], [3, 19, 10], [3, 20, 6], [3, 21, 4], [3, 22, 4], [3, 23, 1], [4, 0, 1], [4, 1, 3], [4, 2, 0], [4, 3, 0], [4, 4, 0], [4, 5, 1], [4, 6, 0], [4, 7, 0], [4, 8, 0], [4, 9, 2], [4, 10, 4], [4, 11, 4], [4, 12, 2], [4, 13, 4], [4, 14, 4], [4, 15, 14], [4, 16, 12], [4, 17, 1], [4, 18, 8], [4, 19, 5], [4, 20, 3], [4, 21, 7], [4, 22, 3], [4, 23, 0], [5, 0, 2], [5, 1, 1], [5, 2, 0], [5, 3, 3], [5, 4, 0], [5, 5, 0], [5, 6, 0], [5, 7, 0], [5, 8, 2], [5, 9, 0], [5, 10, 4], [5, 11, 1], [5, 12, 5], [5, 13, 10], [5, 14, 5], [5, 15, 7], [5, 16, 11], [5, 17, 6], [5, 18, 0], [5, 19, 5], [5, 20, 3], [5, 21, 4], [5, 22, 2], [5, 23, 0], [6, 0, 1], [6, 1, 0], [6, 2, 0], [6, 3, 0], [6, 4, 0], [6, 5, 0], [6, 6, 0], [6, 7, 0], [6, 8, 0], [6, 9, 0], [6, 10, 1], [6, 11, 0], [6, 12, 2], [6, 13, 1], [6, 14, 3], [6, 15, 4], [6, 16, 0], [6, 17, 0], [6, 18, 0], [6, 19, 0], [6, 20, 1], [6, 21, 2], [6, 22, 2], [6, 23, 6]];
       return {
         //tooltip: {},
         visualMap: {
@@ -650,7 +671,7 @@ var sfchart = function () {
       };
     }
     function get2dMapOption() {
-      var data = [
+      let data = [
         { name: '海门', value: 9 },
         { name: '鄂尔多斯', value: 12 },
         { name: '招远', value: 12 },
@@ -679,7 +700,7 @@ var sfchart = function () {
         { name: '泸州', value: 57 },
         { name: '克拉玛依', value: 72 }
       ];
-      var geoCoordMap = {
+      let geoCoordMap = {
         '海门': [121.15, 31.89],
         '鄂尔多斯': [109.781327, 39.608266],
         '招远': [120.38, 37.35],
@@ -873,9 +894,9 @@ var sfchart = function () {
       };
 
       function convertData(data) {
-        var res = [];
-        for (var i = 0; i < data.length; i++) {
-          var geoCoord = geoCoordMap[data[i].name];
+        let res = [];
+        for (let i = 0; i < data.length; i++) {
+          let geoCoord = geoCoordMap[data[i].name];
           if (geoCoord) {
             res.push({
               name: data[i].name,
@@ -1191,7 +1212,7 @@ var sfchart = function () {
         "大庆": [125.03, 46.58]
       };
 
-      var alirl = [[[121.15, 31.89], [109.781327, 39.608266]],
+      let alirl = [[[121.15, 31.89], [109.781327, 39.608266]],
       [[120.38, 37.35], [122.207216, 29.985295]],
       [[123.97, 47.33], [120.13, 33.38]],
       [[118.87, 42.28], [120.33, 36.07]],
@@ -1204,10 +1225,10 @@ var sfchart = function () {
       [[121.05, 32.08], [112.02, 22.93]],
       [[91.11, 29.97], [118.1, 24.46]]
       ]
-      var convertData = function (data) {
-        var res = [];
-        for (var i = 0; i < data.length; i++) {
-          var geoCoord = geoCoordMap[data[i].name];
+      let convertData = function (data) {
+        let res = [];
+        for (let i = 0; i < data.length; i++) {
+          let geoCoord = geoCoordMap[data[i].name];
           if (geoCoord) {
             res.push({
               name: data[i].name,
@@ -1753,7 +1774,7 @@ var sfchart = function () {
             name: 'scatter3D',
             type: "scatter3D",
             coordinateSystem: 'geo3D',
-            symbol: 'pin',
+            symbol: symbolTypes.pin,
             symbolSize: 30,
             opacity: 1,
             label: {
@@ -1866,13 +1887,13 @@ var sfchart = function () {
       };
     }
     function getCandlestickOption() {
-      var upColor = '#ec0000';
-      var upBorderColor = '#8A0000';
-      var downColor = '#00da3c';
-      var downBorderColor = '#008F28';
+      let upColor = '#ec0000';
+      let upBorderColor = '#8A0000';
+      let downColor = '#00da3c';
+      let downBorderColor = '#008F28';
 
-      var dataCount = 2e4;
-      var data = generateOHLC(dataCount);
+      let dataCount = 2e4;
+      let data = generateOHLC(dataCount);
 
       return {
         dataset: {
@@ -2013,29 +2034,29 @@ var sfchart = function () {
       };
 
       function generateOHLC(count) {
-        var data = [];
+        let data = [];
 
-        var xValue = +new Date(2011, 0, 1);
-        var minute = 60 * 1000;
-        var baseValue = Math.random() * 12000;
-        var boxVals = new Array(4);
-        var dayRange = 12;
+        let xValue = +new Date(2011, 0, 1);
+        let minute = 60 * 1000;
+        let baseValue = Math.random() * 12000;
+        let boxVals = new Array(4);
+        let dayRange = 12;
 
-        for (var i = 0; i < count; i++) {
+        for (let i = 0; i < count; i++) {
           baseValue = baseValue + Math.random() * 20 - 10;
 
-          for (var j = 0; j < 4; j++) {
+          for (let j = 0; j < 4; j++) {
             boxVals[j] = (Math.random() - 0.5) * dayRange + baseValue;
           }
           boxVals.sort();
 
-          var idxRandom = Math.random();
-          var openIdx = Math.round(Math.random() * 3);
-          var closeIdx = Math.round(Math.random() * 2);
+          let idxRandom = Math.random();
+          let openIdx = Math.round(Math.random() * 3);
+          let closeIdx = Math.round(Math.random() * 2);
           if (closeIdx === openIdx) {
             closeIdx++;
           }
-          var volumn = boxVals[3] * (1000 + Math.random() * 500);
+          let volumn = boxVals[3] * (1000 + Math.random() * 500);
 
           // ['open', 'close', 'lowest', 'highest', 'volumn']
           // [1, 4, 3, 2]
@@ -2053,7 +2074,7 @@ var sfchart = function () {
         return data;
 
         function getSign(data, dataIndex, openVal, closeVal, closeDimIdx) {
-          var sign;
+          let sign;
           if (openVal > closeVal) {
             sign = -1;
           }
@@ -2074,13 +2095,13 @@ var sfchart = function () {
     }
     function getOHLCOption() {
       function renderItem(params, api) {
-        var xValue = api.value(0);
-        var openPoint = api.coord([xValue, api.value(1)]);
-        var closePoint = api.coord([xValue, api.value(2)]);
-        var lowPoint = api.coord([xValue, api.value(3)]);
-        var highPoint = api.coord([xValue, api.value(4)]);
-        var halfWidth = api.size([1, 0])[0] * 0.35;
-        var style = api.style({
+        let xValue = api.value(0);
+        let openPoint = api.coord([xValue, api.value(1)]);
+        let closePoint = api.coord([xValue, api.value(2)]);
+        let lowPoint = api.coord([xValue, api.value(3)]);
+        let highPoint = api.coord([xValue, api.value(4)]);
+        let halfWidth = api.size([1, 0])[0] * 0.35;
+        let style = api.style({
           stroke: api.visual('color')
         });
 
@@ -2239,7 +2260,7 @@ var sfchart = function () {
         if (value == 0) {
           return 0;
         }
-        var str = Number(value * 100).toFixed();
+        let str = Number(value * 100).toFixed();
         str += "%";
         return str;
       }
@@ -2248,7 +2269,7 @@ var sfchart = function () {
         chartData.legend.data = handledData.legendSerie;
       }
       if (chartData.graphic) {
-        var graphic = {
+        let graphic = {
           type: 'text', // [ default: image ]用 setOption 首次设定图形元素时必须指定。image, text, circle, sector, ring, polygon, polyline, rect, line, bezierCurve, arc, group,
           top: 'center', // 描述怎么根据父元素进行定位。top 和 bottom 只有一个可以生效。如果指定 top 或 bottom，则 shape 里的 y、cy 等定位属性不再生效。『父元素』是指：如果是顶层元素，父元素是 echarts 图表容器。如果是 group 的子元素，父元素就是 group 元素。
           left: 'center',
@@ -2290,7 +2311,7 @@ var sfchart = function () {
     }
     function getRingXOption() {
       // 圆环图各环节的名称和值(系列中各数据项的名称和值)
-      var data = [{
+      let data = [{
         name: '其它',
         value: 320,
         color: '#0000FF'
@@ -2308,11 +2329,11 @@ var sfchart = function () {
         color: '#ffff00'
       }];
       // 圆环图各环节的颜色
-      var color = function () {
-        var serie = [];
-        for (var i = 0; i < data.length; i++) {
+      let color = function () {
+        let serie = [];
+        for (let i = 0; i < data.length; i++) {
           serie.push(data[i].color);
-          //var item = {
+          //let item = {
           //  name: ,
           //  type: 'line',
           //  //stack: "总量",
@@ -2450,10 +2471,6 @@ var sfchart = function () {
       if (chartData.qdasOptions.displayMode == 'LineOff') {
         updatedSeriesData.forEach(v => v.width = 0);
       }
-      if (!chartData.qdasOptions.showSymbols && chartData.qdasOptions.tolerance) {
-        delete chartData.qdasOptions.tolerance.markBeyondUsl;
-        delete chartData.qdasOptions.tolerance.markBeyondLsl;
-      }
 
       for (let i = 0; i < updatedSeriesData.length; i++) {
         let serieData = updatedSeriesData[i];
@@ -2463,18 +2480,9 @@ var sfchart = function () {
         // special marker points
         if (serieData.markPointsData) {
           for (let k = 0; k < serieData.markPointsData.length; k++) {
-            let markPointData = serieData.markPointsData[k];
-            let markPoint = { type: markPointData.type };
-            if (markPointData.symbol)
-              markPoint.symbol = markPointData.symbol;
-            if (markPointData.symbolSize)
-              markPoint.symbolSize = markPointData.symbolSize;
-            if (markPointData.rotate)
-              markPoint.symbolRotate = markPointData.rotate;
-            if (markPointData.color)
-              markPoint.itemStyle = { color: markPointData.color };
-
-            markPoints.push(markPoint);
+            let markPoint = createMarkPoint(serieData.markPointsData[k]);
+            if (markPoint)
+              markPoints.push(markPoint);
           }
         }
         // get data & marker points
@@ -2488,42 +2496,20 @@ var sfchart = function () {
           data.push(pointData.value);
 
           // markPoints
-          let markInfo = {};
+          let markPoint;
           let tolerance = chartData.qdasOptions.tolerance;
           if ((i == 0 || i == 1) && tolerance) {
             if (tolerance.usl && tolerance.markBeyondUsl && tolerance.markBeyondUsl.show && pointData.value > tolerance.usl) {
-              markInfo.symbol = tolerance.markBeyondUsl.symbol;
-              markInfo.symbolSize = tolerance.markBeyondUsl.symbolSize;
-              markInfo.rotate = tolerance.markBeyondUsl.rotate;
-              markInfo.color = tolerance.markBeyondUsl.color;
+              markPoint = createMarkPoint(tolerance.markBeyondUsl, k, pointData.value)
             }
             else if (tolerance.lsl && tolerance.markBeyondLsl && tolerance.markBeyondLsl.show && pointData.value < tolerance.lsl) {
-              markInfo.symbol = tolerance.markBeyondLsl.symbol;
-              markInfo.symbolSize = tolerance.markBeyondLsl.symbolSize;
-              markInfo.rotate = tolerance.markBeyondLsl.rotate;
-              markInfo.color = tolerance.markBeyondLsl.color;
+              markPoint = createMarkPoint(tolerance.markBeyondLsl, k, pointData.value)
             }
           }
-          if (Helper.isNullOrEmptyObject(markInfo) && pointData.marker) {
-            markInfo.name = pointData.marker.name;
-            markInfo.symbol = pointData.marker.symbol;
-            markInfo.symbolSize = pointData.marker.symbolSize;
-            markInfo.rotate = pointData.marker.rotate;
-            markInfo.color = pointData.marker.color;
+          if (!markPoint && pointData.marker) {
+            markPoint = createMarkPoint(pointData.marker, k, pointData.value)
           }
-          if (!Helper.isNullOrEmptyObject(markInfo)) {
-            let markPoint = { coord: [k, pointData.value] };
-            if (markInfo.name)
-              markPoint.name = markInfo.name;
-            if (markInfo.symbol)
-              markPoint.symbol = markInfo.symbol;
-            if (markInfo.symbolSize)
-              markPoint.symbolSize = markInfo.symbolSize;
-            if (markInfo.rotate)
-              markPoint.symbolRotate = markInfo.rotate;
-            if (markInfo.color)
-              markPoint.itemStyle = { color: markInfo.color };
-
+          if (markPoint) {
             markPoints.push(markPoint);
           }
         }
@@ -2531,42 +2517,55 @@ var sfchart = function () {
         // markLine
         let markLine = {};
         if (serieData.markLineData) {
-          var lineDataArray = [];
+          let lineDataArray = [];
           if (serieData.markLineData.horizontalLinesData) {
             for (let k = 0; k < serieData.markLineData.horizontalLinesData.length; k++) {
-              let horizontalLineData = serieData.markLineData.horizontalLinesData[k];
-              let lineData = {
-                name: horizontalLineData.name,
-                yAxis: horizontalLineData.axisValue,
-              };
-              if (horizontalLineData.lineStyle) {
-                lineData.lineStyle = {
-                  type: horizontalLineData.lineStyle.type,
-                  color: horizontalLineData.lineStyle.color
-                }
+              let lineData = createHorizontalLine(serieData.markLineData.horizontalLinesData[k]);
+              if (lineData) {
+                lineDataArray.push(lineData);
               }
-              lineDataArray.push(lineData);
             }
           }
           if (serieData.markLineData.verticalLinesData) {
             for (let k = 0; k < serieData.markLineData.verticalLinesData.length; k++) {
-              let verticalLineData = serieData.markLineData.verticalLinesData[k];
-              let lineData = {
-                name: verticalLineData.name,
-                xAxis: verticalLineData.axisValue,
-              };
-              if (verticalLineData.lineStyle) {
-                lineData.lineStyle = {
-                  type: verticalLineData.lineStyle.type,
-                  color: verticalLineData.lineStyle.color
-                }
+              let lineData = createVerticalLine(serieData.markLineData.verticalLinesData[k]);
+              if (lineData) {
+                lineDataArray.push(lineData);
               }
-              lineDataArray.push(lineData);
             }
           }
 
+          // usl & lsl (shown as horizontal line)
+          if (chartData.qdasOptions.tolerance && chartData.qdasOptions.tolerance.show) {
+            if (chartData.qdasOptions.tolerance.usl) {
+              let lineData = createHorizontalLine({
+                name: 'USL',
+                axisValue: chartData.qdasOptions.tolerance.usl,
+                lineStyle: {
+                  type: lineTypes.solid,
+                  color: 'red'
+                }
+              });
+              if (lineData) {
+                lineDataArray.push(lineData);
+              }
+            }
+            if (chartData.qdasOptions.tolerance.lsl) {
+              let lineData = createHorizontalLine({
+                name: 'LSL',
+                axisValue: chartData.qdasOptions.tolerance.lsl,
+                lineStyle: {
+                  type: lineTypes.solid,
+                  color: 'red'
+                }
+              });
+              if (lineData) {
+                lineDataArray.push(lineData);
+              }
+            }
+          }
           markLine.silent = !serieData.markLineData.enableHit;
-          markLine.symbol = serieData.markLineData.symbol;
+          markLine.symbol = chartData.qdasOptions.showSymbols ? serieData.markLineData.symbol : symbolTypes.none;
           markLine.label = { formatter: '{b}' };
           markLine.data = lineDataArray;
         }
@@ -2574,7 +2573,7 @@ var sfchart = function () {
         // push a line to series object
         series.push({
           type: 'line',
-          symbol: 'circle',
+          symbol: chartData.qdasOptions.showSymbols ? serieData.symbol : symbolTypes.none,
           color: serieData.color,
           symbolSize: serieData.symbolSize,
           lineStyle: { width: serieData.width },
@@ -2591,7 +2590,6 @@ var sfchart = function () {
         yAxis: yAxis,
         series: series
       };
-
       function createTextStyle(textStyleData) {
         if (Helper.isNullOrEmptyObject(textStyleData))
           return;
@@ -2615,7 +2613,7 @@ var sfchart = function () {
         }
         if (textStyleData.fontWeight) {
           // ECharts supports:: 'normal', 'bold', 'bolder', 'lighter'
-          var weight = 'normal';
+          let weight = 'normal';
           switch (textStyleData.fontWeight) {
             case 'narrow':
               weight = 'lighter';
@@ -2699,9 +2697,6 @@ var sfchart = function () {
                 serie3.pointsData[index] = null;
               }
 
-              if (!chartData.qdasOptions.showSymbols && serie1.pointsData[index]) {
-                delete serie1.pointsData[index].marker;
-              }
               if (serie2.pointsData[index])
                 delete serie2.pointsData[index].marker;
               if (serie3 && serie3.pointsData[index]) {
@@ -2711,9 +2706,6 @@ var sfchart = function () {
           }
 
           // others
-          if (!chartData.qdasOptions.showSymbols) {
-            delete serie1.markPointsData;
-          }
           delete serie2.markPointsData;
           if (serie3) {
             delete serie3.markPointsData;
@@ -2721,10 +2713,58 @@ var sfchart = function () {
           }
         }
       }
+      function createMarkPoint(markInfo, index, value) {
+        if (Helper.isNullOrEmptyObject(markInfo) || (!markInfo.showValue && (!chartData.qdasOptions.showSymbols || !markInfo.symbol)))
+          return;
+
+        let markPoint = markInfo.type ? { type: markInfo.type } : { coord: [index, value] };
+        if (markInfo.name)
+          markPoint.name = markInfo.name;
+        if (markInfo.showValue)
+          markPoint.value = value;
+        if (markInfo.symbol)
+          markPoint.symbol = chartData.qdasOptions.showSymbols ? markInfo.symbol : symbolTypes.none;
+        if (markInfo.symbolSize)
+          markPoint.symbolSize = markInfo.symbolSize;
+        if (markInfo.rotate)
+          markPoint.symbolRotate = markInfo.rotate;
+        if (markInfo.color)
+          markPoint.itemStyle = { color: markInfo.color };
+
+        return markPoint;
+      }
+      function createVerticalLine(lineInfo) {
+        let lineData = {
+          name: lineInfo.name,
+          xAxis: lineInfo.axisValue,
+        };
+        if (lineInfo.lineStyle) {
+          lineData.lineStyle = {
+            type: lineInfo.lineStyle.type,
+            color: lineInfo.lineStyle.color
+          }
+        }
+        return lineData;
+      }
+      function createHorizontalLine(lineInfo) {
+        let lineData = {
+          name: lineInfo.name,
+          yAxis: lineInfo.axisValue,
+        };
+        if (lineInfo.lineStyle) {
+          lineData.lineStyle = {
+            type: lineInfo.lineStyle.type,
+            color: lineInfo.lineStyle.color
+          }
+        }
+        return lineData;
+      }
     }
   }
-
   return {
+    lineTypes: lineTypes,
+    symbolTypes: symbolTypes,
+    symbolSizes: symbolSizes,
     getEChartOption: getEChartOption
   }
 }();
