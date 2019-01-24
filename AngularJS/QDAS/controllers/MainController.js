@@ -42,7 +42,6 @@ app.controller("MainController", function ($scope, $timeout, $location) {
             color: 'red',
             rotate: 180,
           },
-          subgroupSize: 3,
         },
       },
 
@@ -54,7 +53,6 @@ app.controller("MainController", function ($scope, $timeout, $location) {
         fontFamily: 'sans-serif',
         fontSize: 12
       },
-
       xAxisData: {
         show: true,
         title: 'Value No. ->',
@@ -103,10 +101,10 @@ app.controller("MainController", function ($scope, $timeout, $location) {
         }
       },
       lineData: {
+        width: 1,
         color: 'green',
         symbol: sfchart.symbolTypes.circle,
         symbolSize: sfchart.symbolSizes.small,
-        width: 1,
 
         pointsData: [
           {
@@ -130,7 +128,7 @@ app.controller("MainController", function ($scope, $timeout, $location) {
           }
         ],
         markPointsData: [{
-          type: 'average', // can be 'max', 'min' or 'average'
+          type: sfchart.specialMarkTypes.average, // can be 'max', 'min' or 'average'
           symbol: sfchart.symbolTypes.rect,
           symbolSize: sfchart.symbolSizes.normal,
           color: 'black',
@@ -166,7 +164,4 @@ app.controller("MainController", function ($scope, $timeout, $location) {
       }
     }
   };
-
-  function getUpdatedData() {
-  }
 });

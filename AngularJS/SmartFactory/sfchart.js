@@ -22,6 +22,11 @@ var sfchart = function () {
     normal: 20,
     big: 30
   };
+  let specialMarkTypes = {
+    min: 'min',
+    max: 'max',
+    average: 'average'
+  };
   let getEChartOption = function (charttype, data, dataKey) {
     let key = dataKey ? dataKey : charttype;
     if (!data.hasOwnProperty(key))
@@ -2761,10 +2766,12 @@ var sfchart = function () {
       }
     }
   }
+
   return {
     lineTypes: lineTypes,
     symbolTypes: symbolTypes,
     symbolSizes: symbolSizes,
+    specialMarkTypes: specialMarkTypes,
     getEChartOption: getEChartOption
   }
 }();
